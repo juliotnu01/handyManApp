@@ -1,0 +1,7 @@
+{
+  "name": "handyManApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
