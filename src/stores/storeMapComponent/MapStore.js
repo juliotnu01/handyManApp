@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { Loader } from "@googlemaps/js-api-loader"
+
 export const useMapStore = defineStore('googleMaps', {
     state() {
         return {
@@ -10,7 +11,8 @@ export const useMapStore = defineStore('googleMaps', {
                 libraries: ['places']
             }),
             marketInit: null,
-            map: null
+            map: null,
+            optionMap: {},
         }
-    }
+    },
 })
