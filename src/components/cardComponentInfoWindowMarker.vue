@@ -28,22 +28,29 @@
             </div>
         </div>
         <div class="flex justify-between gap-4">
-            <ion-menu-toggle @click="closeMenu" menu="first-menu" class="p-4 py-2 bg-purple-400 text-center text-white font-bold rounded-md w-full">
-                <button >
+            <ion-menu-toggle @click="storeServicio()" menu="first-menu"
+                class="p-4 py-2 bg-purple-400 text-center text-white font-bold rounded-md w-full">
+                <button>
                     Ver detalle
                 </button>
             </ion-menu-toggle>
-            <button class="p-4 py-2 bg-blue-400 text-center text-white font-bold rounded-md w-full "> 
+            <button class="p-4 py-2 bg-blue-400 text-center text-white font-bold rounded-md w-full ">
                 Contactar
             </button>
         </div>
     </div>
 </template>
 <script setup lang="ts">
+import {
+    IonMenuToggle,
+} from '@ionic/vue';
 import { useSideRightMenuStore } from '@/stores/storeSiderightMenu/sideRight.js'
 
 import { computed } from 'vue';
 import { storeToRefs } from "pinia";
+import axios from 'axios';
+
+
 
 const storeSideRightMeny: any = useSideRightMenuStore()
 
@@ -59,7 +66,22 @@ const openMenu = async () => {
     computedMenuID.value = 'first-menu'
     await storeSideRightMeny.openRightMenu;
 };
-const closeMenu = async () => {
-    console.log('asdasd')
-};
+
+const storeServicio = async () => {
+    try {
+        await axios.post('http://localhost:8000/api/servicios/store', {
+            codigo: '5346f9e0-7ee0-11ee-b962-0242ac120002',
+            servicio: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+            tipo_servicio: 'Lorem ipsum dolor',
+            ubicacion: '5402 Margaretta Stravenue, Deonberg, IA 05039-8529',
+            coordenadas: '26.65195, 56.36255',
+            status: 1,
+            precio: parseFloat('999.999,99'),
+            usr_creador: 1,
+            usr_solicitante: 1,
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
 </script>

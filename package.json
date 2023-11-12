@@ -23,6 +23,7 @@
     "@googlemaps/js-api-loader": "^1.16.2",
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
+    "axios": "^1.6.1",
     "ionicons": "^7.0.0",
     "pinia": "^2.1.7",
     "swiper": "^11.0.3",
