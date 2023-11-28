@@ -51,7 +51,7 @@
     </div>
     <div class=" z-[1] h-[42rem] relative top-40 w-11/12 mx-auto overflow-y-scroll p-2 grid grid-col-1 gap-2 "
       v-if="toggleFilter">
-      <div class="bg-white w-full h-[10rem] rounded-lg shadow-xl flex " v-for="n in 100" :key="n">
+      <div class="bg-white w-full h-auto py-1 rounded-lg shadow-xl flex " v-for="n in 10" :key="n">
         <div class="w-2/5 h-full p-2">
           <div
             class="bg-cover rounded-xl bg-center h-full w-full bg-[url('https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')] ">
@@ -120,7 +120,7 @@
               <ion-label>99</ion-label>
             </ion-chip>
           </div>
-          <div class="flex  h-[2rem] w-full  justify-around gap-2 px-2">
+          <div class="flex  h-[2rem] w-full  justify-end gap-2 px-2">
             <button class="bg-[#cecece] w-8 h-8 flex justify-center rounded-full">
               <svg width="15px" height="15px" viewBox="0 0 32 32" fill="none" class=" self-center ">
                 <path
@@ -194,5 +194,5 @@ const toggleFilter = computed({
 
 
 </script>
-<style  scoped>ion-chip {}</style>
+
 

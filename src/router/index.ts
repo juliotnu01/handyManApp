@@ -5,7 +5,12 @@ import TabsPage from '../views/TabsPage.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/landing'
+  },
+  {
+    path: '/landing',
+    component: () => import('@/views/LandingPage.vue'),
+    name: 'landing'
   },
   {
     path: '/tabs/',
