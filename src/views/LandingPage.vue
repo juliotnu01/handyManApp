@@ -1,8 +1,5 @@
 <template>
     <ion-page>
-        <ion-menu content-id="main-content">
-            <ion-content class="ion-padding">This is the menu content.</ion-content>
-        </ion-menu>
         <div class="flex justify-between w-full ">
             <ion-menu-button></ion-menu-button>
             <div class="flex  justify-center ">
@@ -17,7 +14,7 @@
                 <ion-badge color="black">1</ion-badge>
             </ion-button>
         </div>
-        <ion-content id="main-content" class="h-[100rem] relative">
+        <ion-content  class="h-[100rem] relative">
             <div class=" h-[3rem] mx-4 mt-2 -mb-2 fixed w-11/12 z-[100] ">
                 <label for="search" class="flex relative ">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="absolute mt-[0.68rem] ml-2  ">
@@ -30,7 +27,7 @@
                 </label>
             </div>
             <div class="mt-16 w-11/12  h-[6rem] mx-auto ">
-                <swiper :slidesPerView="4" :spaceBetween="30" :modules="modules" class="h-[5rem]">
+                <swiper :slidesPerView="4" :loop="true" :spaceBetween="30" :modules="modules" class="h-[5rem]">
                     <swiper-slide
                         class="bg-red-100 rounded-xl relative  h-[3rem] text-center flex justify-center border-red-300 border-[1px]">
                         <svg width="40px" height="40px" viewBox="0 0 512 512" class=" self-center text-red-400 ">
@@ -230,8 +227,8 @@
                 </swiper>
             </div>
             <div class="w-11/12 mx-auto ">
-                <swiper :centeredSlides="true" :autoplay="{ delay: 2500, disableOnInteraction: false, }" :modules="modules2"
-                    :pagination="{ clickable: false, }" class=" h-[10rem]  rounded-xl">
+                <swiper :loop="true" :centeredSlides="true" :autoplay="{ delay: 2500, disableOnInteraction: false, }"
+                    :modules="modules2" :pagination="{ clickable: false, }" class=" h-[10rem]  rounded-xl">
                     <swiper-slide
                         class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=1')] "></swiper-slide>
                     <swiper-slide
@@ -243,127 +240,182 @@
             <div class="w-11/12 mx-4 my-2">
                 <div class=" flex justify-between">
                     <span class="text-[24px] font-bold font-sans">Recomendados</span>
-                    <a href="" class="text-blue-400 hover:text-blue-800 self-center">Ver mas</a>
+                    <button @click="() => router.push('/tabs/tab1')"
+                        class="text-blue-400 hover:text-blue-800 self-center">Ver mas</button>
                 </div>
-                <div class="grid grid-cols-2 gap-4 ">
-                    <div class="h-[10rem]  rounded-xl mb-14 relative  ">
-                        <div
-                            class="h-full rounded-xl bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=4')] ">
-                        </div>
-                        <div class="flex flex-col  w-[95%] mx-1 leading-4">
-                            <span class="text-[12px] text-[#cecece] font-bold font-sans">Lorem ipsum dolor sit amet,</span>
-                            <span class="text-[18px] font-bold font-sans line-clamp-1 ">Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit. Doloribus cupiditate rerum quis reprehenderit iusto sint minus
-                                sunt adipisci similique, voluptas impedit tempora ea exercitationem veniam itaque aperiam,
-                                incidunt dolore sapiente. </span>
-                            <span class="text-[20px]   font-sans mt-2 line-clamp-1 text-end">$99.999,99 </span>
-                        </div>
-                        <div
-                            class="w-10 h-20 bg-red-600 clip-flag transform absolute top-0 -right-1 rounded-tr-xl rounded-tl-xl  shadow-xl rotate-12 flex flex-col justify-center leading-3">
-                            <span class="text-white text-center font-bold -mb-4 text-[10px]">
-                                oferta
-                            </span>
-                            <span class="text-white font-bold mt-4 text-center text-[12px]">
-                                -99%
-                            </span>
-                        </div>
-                    </div>
-                    <div class="h-[10rem]  rounded-xl mb-14 relative  ">
-                        <div
-                            class="h-full rounded-xl bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=5')] ">
-                        </div>
-                        <div class="flex flex-col  w-[95%] mx-1 leading-4">
-                            <span class="text-[12px] text-[#cecece] font-bold font-sans">Lorem ipsum dolor sit amet,</span>
-                            <span class="text-[18px] font-bold font-sans line-clamp-1 ">Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit. Doloribus cupiditate rerum quis reprehenderit iusto sint minus
-                                sunt adipisci similique, voluptas impedit tempora ea exercitationem veniam itaque aperiam,
-                                incidunt dolore sapiente. </span>
-                            <span class="text-[20px]   font-sans mt-2 line-clamp-1 text-end">$99.999,99 </span>
-                        </div>
-                        <!-- <div class="w-10 h-20 bg-red-600 clip-flag transform absolute top-0 -right-1 rounded-tr-xl rounded-tl-xl  shadow-xl rotate-12 flex flex-col justify-center leading-3">
-                            <span class="text-white text-center font-bold -mb-4 text-[10px]">
-                                oferta
-                            </span>
-                            <span class="text-white font-bold mt-4 text-center text-[12px]">
-                                -99%
-                            </span>
-                        </div> -->
-                    </div>
+                <div>
+                    <swiper :slidesPerView="2" :spaceBetween="15" :loop="true" :modules="modules3"
+                        :autoplay="{ delay: 2500, disableOnInteraction: false, }" :pagination="{ clickable: false, }"
+                        :navigation="true" class=" h-[15rem] p-1 ">
+                        <swiper-slide class="bg-red-300 rounded-xl mb-14 relative h-[10rem]" v-for="n in 10" :key="n">
+                            <div
+                                :class="`h-full rounded-xl bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=${n}')]`">
+                            </div>
+                            <div class="absolute -bottom-18">
+                                <div class="flex flex-col  w-[95%] mx-1 leading-4">
+                                    <span class="text-[16px] font-bold font-sans line-clamp-1 ">Lorem ipsum dolor sit amet,
+                                        consectetur adipisicing elit. Doloribus cupiditate rerum quis reprehenderit iusto
+                                        sint minus
+                                        sunt adipisci similique, voluptas impedit tempora ea exercitationem veniam itaque
+                                        aperiam,
+                                        incidunt dolore sapiente. </span>
+                                    <span class="text-[12px] text-[#cecece] font-bold font-sans">Lorem ipsum dolor sit
+                                        amet,</span>
+                                    <span class="text-[20px]   font-sans mt-2 line-clamp-1 text-end">$99.999,99 </span>
+                                </div>
+                            </div>
+                            <div
+                                class="w-10 h-20 bg-red-600 clip-flag transform absolute top-0 left-1 rounded-tr-xl rounded-tl-xl  shadow-xl rotate-0 flex flex-col justify-center leading-3">
+                                <span class="text-white text-center font-bold -mb-4 text-[10px]">
+                                    oferta
+                                </span>
+                                <span class="text-white font-bold mt-4 text-center text-[12px]">
+                                    -99%
+                                </span>
+                            </div>
+                        </swiper-slide>
+                    </swiper>
+                </div>
+            </div>
+            <div class="w-11/12 mx-4">
+                <div class=" flex justify-between">
+                    <span class="text-[24px] font-bold font-sans">Populares</span>
+                    <button @click="() => router.push('/tabs/tab1')"
+                        class="text-blue-400 hover:text-blue-800 self-center">Ver mas</button>
+                </div>
+                <div class="">
+                    <swiper :slidesPerView="2" :spaceBetween="15" :loop="true"
+                        :autoplay="{ delay: 2500, disableOnInteraction: false, }" :pagination="{ clickable: false, }"
+                        :navigation="true" class=" h-[21rem] p-1 ">
+                        <swiper-slide class="bg-red-300 rounded-xl  relative h-[20rem]" v-for="n in 10" :key="n">
+                            <div
+                                :class="`h-full rounded-xl backdrop-saturate-200 bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=${n}')]`">
+                                <ion-chip class="-ml-1 w-14 h-2 -p-2 text-white font-bold right-1 absolute">
+                                    <ion-avatar class="w-4 h-4">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="currentcolor"
+                                            class="text-white">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M5.62436 4.4241C3.96537 5.18243 2.75 6.98614 2.75 9.13701C2.75 11.3344 3.64922 13.0281 4.93829 14.4797C6.00072 15.676 7.28684 16.6675 8.54113 17.6345C8.83904 17.8642 9.13515 18.0925 9.42605 18.3218C9.95208 18.7365 10.4213 19.1004 10.8736 19.3647C11.3261 19.6292 11.6904 19.7499 12 19.7499C12.3096 19.7499 12.6739 19.6292 13.1264 19.3647C13.5787 19.1004 14.0479 18.7365 14.574 18.3218C14.8649 18.0925 15.161 17.8642 15.4589 17.6345C16.7132 16.6675 17.9993 15.676 19.0617 14.4797C20.3508 13.0281 21.25 11.3344 21.25 9.13701C21.25 6.98614 20.0346 5.18243 18.3756 4.4241C16.7639 3.68739 14.5983 3.88249 12.5404 6.02065C12.399 6.16754 12.2039 6.25054 12 6.25054C11.7961 6.25054 11.601 6.16754 11.4596 6.02065C9.40166 3.88249 7.23607 3.68739 5.62436 4.4241ZM12 4.45873C9.68795 2.39015 7.09896 2.10078 5.00076 3.05987C2.78471 4.07283 1.25 6.42494 1.25 9.13701C1.25 11.8025 2.3605 13.836 3.81672 15.4757C4.98287 16.7888 6.41022 17.8879 7.67083 18.8585C7.95659 19.0785 8.23378 19.292 8.49742 19.4998C9.00965 19.9036 9.55954 20.3342 10.1168 20.6598C10.6739 20.9853 11.3096 21.2499 12 21.2499C12.6904 21.2499 13.3261 20.9853 13.8832 20.6598C14.4405 20.3342 14.9903 19.9036 15.5026 19.4998C15.7662 19.292 16.0434 19.0785 16.3292 18.8585C17.5898 17.8879 19.0171 16.7888 20.1833 15.4757C21.6395 13.836 22.75 11.8025 22.75 9.13701C22.75 6.42494 21.2153 4.07283 18.9992 3.05987C16.901 2.10078 14.3121 2.39015 12 4.45873Z"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </ion-avatar>
+                                </ion-chip>
+                            </div>
+                            <div class="absolute bottom-2">
+                                <div class="flex flex-col  w-[95%] mx-1 leading-4">
+                                    <span class="text-[16px] font-bold font-sans line-clamp-1 text-white ">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus cupiditate rerum
+                                        quis reprehenderit iusto sint minus sunt adipisci similique, voluptas impedit
+                                        tempora ea exercitationem veniam itaque aperiam, incidunt dolore sapiente.
+                                    </span>
+                                    <span class="text-[12px] text-[#f6f3f3] font-bold font-sans">Lorem ipsum dolor sit
+                                        amet,</span>
+                                    <span
+                                        class="text-[20px]   font-sans mt-2 line-clamp-1 text-end font-bold bg-transparent w-fit self-end text-white  ">$99.999,99
+                                    </span>
+                                </div>
+                            </div>
+                            <div
+                                class="w-10 h-20 bg-red-600 clip-flag transform absolute top-0 left-1 rounded-tr-xl rounded-tl-xl  shadow-xl rotate-0 flex flex-col justify-center leading-3">
+                                <span class="text-white text-center font-bold -mb-4 text-[10px]">
+                                    oferta
+                                </span>
+                                <span class="text-white font-bold mt-4 text-center text-[12px]">
+                                    -99%
+                                </span>
+                            </div>
+                        </swiper-slide>
+                    </swiper>
                 </div>
             </div>
             <div class="w-11/12 mx-4 my-2">
                 <div class=" flex justify-between">
-                    <span class="text-[24px] font-bold font-sans">Populares</span>
-                    <a href="" class="text-blue-400 hover:text-blue-800 self-center">Ver mas</a>
+                    <span class="text-[24px] font-bold font-sans">Nuevos lanzamientos</span>
+                    <button @click="() => router.push('/tabs/tab1')"
+                        class="text-blue-400 hover:text-blue-800 self-center">Ver mas</button>
                 </div>
-                <div class="grid grid-cols-2 gap-4 ">
-                    <div class="h-[20rem]  rounded-xl mb-14 relative ">
-                        <div
-                            class="h-full bg-local rounded-xl bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=4')] relative">
-                            <ion-chip class="-ml-1 w-14 h-2 -p-2 text-white font-bold right-0 absolute">
-                                <ion-avatar class="w-4 h-4">
-                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="currentcolor" class="text-white">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M5.62436 4.4241C3.96537 5.18243 2.75 6.98614 2.75 9.13701C2.75 11.3344 3.64922 13.0281 4.93829 14.4797C6.00072 15.676 7.28684 16.6675 8.54113 17.6345C8.83904 17.8642 9.13515 18.0925 9.42605 18.3218C9.95208 18.7365 10.4213 19.1004 10.8736 19.3647C11.3261 19.6292 11.6904 19.7499 12 19.7499C12.3096 19.7499 12.6739 19.6292 13.1264 19.3647C13.5787 19.1004 14.0479 18.7365 14.574 18.3218C14.8649 18.0925 15.161 17.8642 15.4589 17.6345C16.7132 16.6675 17.9993 15.676 19.0617 14.4797C20.3508 13.0281 21.25 11.3344 21.25 9.13701C21.25 6.98614 20.0346 5.18243 18.3756 4.4241C16.7639 3.68739 14.5983 3.88249 12.5404 6.02065C12.399 6.16754 12.2039 6.25054 12 6.25054C11.7961 6.25054 11.601 6.16754 11.4596 6.02065C9.40166 3.88249 7.23607 3.68739 5.62436 4.4241ZM12 4.45873C9.68795 2.39015 7.09896 2.10078 5.00076 3.05987C2.78471 4.07283 1.25 6.42494 1.25 9.13701C1.25 11.8025 2.3605 13.836 3.81672 15.4757C4.98287 16.7888 6.41022 17.8879 7.67083 18.8585C7.95659 19.0785 8.23378 19.292 8.49742 19.4998C9.00965 19.9036 9.55954 20.3342 10.1168 20.6598C10.6739 20.9853 11.3096 21.2499 12 21.2499C12.6904 21.2499 13.3261 20.9853 13.8832 20.6598C14.4405 20.3342 14.9903 19.9036 15.5026 19.4998C15.7662 19.292 16.0434 19.0785 16.3292 18.8585C17.5898 17.8879 19.0171 16.7888 20.1833 15.4757C21.6395 13.836 22.75 11.8025 22.75 9.13701C22.75 6.42494 21.2153 4.07283 18.9992 3.05987C16.901 2.10078 14.3121 2.39015 12 4.45873Z"
-                                            fill="currentColor" />
-                                    </svg>
-                                </ion-avatar>
-                            </ion-chip>
-                            <div class="self-end bottom-0 leading-[.99rem] mb-2 mx-2 h-[90%] flex ">
-                                <div class="flex flex-col self-end">
+                <div class="">
+                    <swiper :loop="true" :centeredSlides="true" :autoplay="{ delay: 5000, disableOnInteraction: false, }"
+                        :modules="modules3" :pagination="{ clickable: false, }" class=" h-[12rem]  rounded-xl">
+                        <swiper-slide
+                            :class="` h-full rounded-xl backdrop-saturate-200 bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=${n}')] shadow-xl `"
+                            v-for="n in 4" :key="n">
+
+                            <div class="z-[1] h-full">
+                                <div class="flex  h-full w-10/12  ">
+                                    <button
+                                        class="bg-gray-700 p-2 absolute  top-6 left-4 rounded-lg self-center text-[9px] text-white font-semibold">
+                                        Articulo nuevo
+                                    </button>
                                     <span
-                                        class=" line-clamp-1 self-end text-white shadow-xl text-start mb-1 text-[14px] font-bold font-sans ">
-                                        $ 99.999,99
+                                        class="line-clamp-2 absolute  left-2 font-bold text-[18px] text-white leading-5 top-14 w-2/3  ">Lorem,
+                                        ipsum dolor sit amet consectetur adipisicing elit.
+                                        Assumenda, maxime dolorum, saepe est consequatur dolore provident, ex omnis sed eius
+                                        labore! Molestias vitae odit expedita quod cumque voluptas ratione
+                                        asperiores!
                                     </span>
                                     <span
-                                        class=" line-clamp-1 self-end text-[#efb810] text-center mb-1 text-[20px] font-bold font-sans bottom-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        class="line-clamp-1 absolute  left-2 font-bold text-[18px] text-red-800 leading-5 top-[99px] w-2/3  ">
+                                        $ 99.999.99,99
                                     </span>
+                                    <button
+                                        class="bg-red-300 p-2 absolute  top-[140px] left-4 rounded-lg self-center  font-bold shadow-xl flex gap-2">
+                                        Comprar
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                            class=" self-center ">
+                                            <path
+                                                d="M19.5 8.25H16.5V7.75C16.5 6.55653 16.0259 5.41193 15.182 4.56802C14.3381 3.72411 13.1935 3.25 12 3.25C10.8065 3.25 9.66193 3.72411 8.81802 4.56802C7.97411 5.41193 7.5 6.55653 7.5 7.75V8.25H4.5C4.16848 8.25 3.85054 8.3817 3.61612 8.61612C3.3817 8.85054 3.25 9.16848 3.25 9.5V18C3.25 18.7293 3.53973 19.4288 4.05546 19.9445C4.57118 20.4603 5.27065 20.75 6 20.75H18C18.7293 20.75 19.4288 20.4603 19.9445 19.9445C20.4603 19.4288 20.75 18.7293 20.75 18V9.5C20.75 9.16848 20.6183 8.85054 20.3839 8.61612C20.1495 8.3817 19.8315 8.25 19.5 8.25ZM9 7.75C9 6.95435 9.31607 6.19129 9.87868 5.62868C10.4413 5.06607 11.2044 4.75 12 4.75C12.7956 4.75 13.5587 5.06607 14.1213 5.62868C14.6839 6.19129 15 6.95435 15 7.75V8.25H9V7.75ZM19.25 18C19.25 18.3315 19.1183 18.6495 18.8839 18.8839C18.6495 19.1183 18.3315 19.25 18 19.25H6C5.66848 19.25 5.35054 19.1183 5.11612 18.8839C4.8817 18.6495 4.75 18.3315 4.75 18V9.75H7.5V12C7.5 12.1989 7.57902 12.3897 7.71967 12.5303C7.86032 12.671 8.05109 12.75 8.25 12.75C8.44891 12.75 8.63968 12.671 8.78033 12.5303C8.92098 12.3897 9 12.1989 9 12V9.75H15V12C15 12.1989 15.079 12.3897 15.2197 12.5303C15.3603 12.671 15.5511 12.75 15.75 12.75C15.9489 12.75 16.1397 12.671 16.2803 12.5303C16.421 12.3897 16.5 12.1989 16.5 12V9.75H19.25V18Z"
+                                                fill="#000000" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="h-[20rem]  rounded-xl mb-14 relative ">
-                        <div
-                            class="h-full bg-local rounded-xl bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=4')] relative">
-                            <ion-chip class="-ml-1 w-14 h-2 -p-2 text-white font-bold right-0 absolute">
-                                <ion-avatar class="w-4 h-4">
-                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="currentcolor" class="text-white">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M5.62436 4.4241C3.96537 5.18243 2.75 6.98614 2.75 9.13701C2.75 11.3344 3.64922 13.0281 4.93829 14.4797C6.00072 15.676 7.28684 16.6675 8.54113 17.6345C8.83904 17.8642 9.13515 18.0925 9.42605 18.3218C9.95208 18.7365 10.4213 19.1004 10.8736 19.3647C11.3261 19.6292 11.6904 19.7499 12 19.7499C12.3096 19.7499 12.6739 19.6292 13.1264 19.3647C13.5787 19.1004 14.0479 18.7365 14.574 18.3218C14.8649 18.0925 15.161 17.8642 15.4589 17.6345C16.7132 16.6675 17.9993 15.676 19.0617 14.4797C20.3508 13.0281 21.25 11.3344 21.25 9.13701C21.25 6.98614 20.0346 5.18243 18.3756 4.4241C16.7639 3.68739 14.5983 3.88249 12.5404 6.02065C12.399 6.16754 12.2039 6.25054 12 6.25054C11.7961 6.25054 11.601 6.16754 11.4596 6.02065C9.40166 3.88249 7.23607 3.68739 5.62436 4.4241ZM12 4.45873C9.68795 2.39015 7.09896 2.10078 5.00076 3.05987C2.78471 4.07283 1.25 6.42494 1.25 9.13701C1.25 11.8025 2.3605 13.836 3.81672 15.4757C4.98287 16.7888 6.41022 17.8879 7.67083 18.8585C7.95659 19.0785 8.23378 19.292 8.49742 19.4998C9.00965 19.9036 9.55954 20.3342 10.1168 20.6598C10.6739 20.9853 11.3096 21.2499 12 21.2499C12.6904 21.2499 13.3261 20.9853 13.8832 20.6598C14.4405 20.3342 14.9903 19.9036 15.5026 19.4998C15.7662 19.292 16.0434 19.0785 16.3292 18.8585C17.5898 17.8879 19.0171 16.7888 20.1833 15.4757C21.6395 13.836 22.75 11.8025 22.75 9.13701C22.75 6.42494 21.2153 4.07283 18.9992 3.05987C16.901 2.10078 14.3121 2.39015 12 4.45873Z"
-                                            fill="currentColor" />
-                                    </svg>
-                                </ion-avatar>
-                            </ion-chip>
-                            <div class="self-end bottom-0 leading-[.99rem] mb-2 mx-2 h-[90%] flex ">
-                                <div class="flex flex-col self-end">
-                                    <span
-                                        class=" line-clamp-1 self-end text-white shadow-xl text-start mb-1 text-[14px] font-bold font-sans ">
-                                        $ 99.999,99
-                                    </span>
-                                    <span
-                                        class=" line-clamp-1 self-end text-[#efb810] text-center mb-1 text-[20px] font-bold font-sans bottom-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+                        </swiper-slide>
+                    </swiper>
                 </div>
             </div>
         </ion-content>
     </ion-page>
 </template>
 <script lang="ts" setup >
-import { IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel } from '@ionic/vue';
+import { IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
 import logo from '@/assets/Icons/logo.png'
 import logoname from '@/assets/Icons/logo-name.png'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { useRouter } from 'vue-router';
+import {
+    archiveOutline,
+    archiveSharp,
+    bookmarkOutline,
+    bookmarkSharp,
+    heartOutline,
+    heartSharp,
+    mailOutline,
+    mailSharp,
+    paperPlaneOutline,
+    paperPlaneSharp,
+    trashOutline,
+    trashSharp,
+    warningOutline,
+    warningSharp,
+    home,
+    speedometer,
+    cash,
+    lockOpen,
+    locate,
+    car
+} from 'ionicons/icons';
 const modules: any = [Pagination];
 const modules2: any = [Pagination, Autoplay];
+const modules3: any = [Autoplay];
+const router = useRouter()
+
+
 </script>
-<style scoped>
+<style scoped lang="less" >
 ion-menu::part(container) {
     border-radius: 0 20px 20px 0;
 
@@ -372,5 +424,16 @@ ion-menu::part(container) {
 
 .clip-flag {
     clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%);
+}
+
+.toggle-checkbox:checked {
+    @apply: right-0 border-green-400;
+    right: 0;
+    border-color: #68D391;
+}
+
+.toggle-checkbox:checked+.toggle-label {
+    @apply: bg-green-400;
+    background-color: #68D391;
 }
 </style>

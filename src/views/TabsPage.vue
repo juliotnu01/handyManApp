@@ -3,14 +3,16 @@
     <menuSideBarRight />
     <ion-router-outlet id="main-content" />
     <!-- top menu -->
-    <div class="bg-[#c6495e] w-full z-[1] h-28 absolute top-0 rounded-bl-3xl rounded-br-3xl ">
+    <div class="bg-[#c6495e] w-full z-[1] h-28 absolute top-0 rounded-bl-3xl rounded-br-3xl " v-show="route.path !== '/tabs/tab2' " >
       <div class="white bg-transparent h-[95%] w-[99%] mx-auto rounded-bl-3xl rounded-br-3xl border-black border-x-[3px]">
         <div class="w-full p-4 pt-2 ">
-          <svg width="35px" height="35px" viewBox="0 0 32 32" class="">
-            <path d="M3.205 6.937v4.265h25.59v-4.265h-25.59zM27.729 10.136h-23.457v-2.133h23.457v2.133z" fill="#fff" />
-            <path d="M3.205 18.133h25.59v-4.265h-25.59v4.265zM4.271 14.934h23.457v2.133h-23.457v-2.133z" fill="#fff" />
-            <path d="M3.205 25.063h25.59v-4.265h-25.59v4.265zM4.271 21.864h23.457v2.133h-23.457v-2.133z" fill="#fff" />
-          </svg>
+          <button @click="openFirstMenu">
+            <svg width="35px" height="35px" viewBox="0 0 32 32" class="">
+              <path d="M3.205 6.937v4.265h25.59v-4.265h-25.59zM27.729 10.136h-23.457v-2.133h23.457v2.133z" fill="#fff" />
+              <path d="M3.205 18.133h25.59v-4.265h-25.59v4.265zM4.271 14.934h23.457v2.133h-23.457v-2.133z" fill="#fff" />
+              <path d="M3.205 25.063h25.59v-4.265h-25.59v4.265zM4.271 21.864h23.457v2.133h-23.457v-2.133z" fill="#fff" />
+            </svg>
+          </button>
         </div>
         <div class="px-5 flex justify-between  ">
           <svg width="25px" height="25px" viewBox="0 0 15 15" fill="none" @click="toggleFilter = !toggleFilter">
@@ -49,8 +51,9 @@
         </label>
       </div>
     </div>
-    <div class=" z-[1] h-[42rem] relative top-40 w-11/12 mx-auto overflow-y-scroll p-2 grid grid-col-1 gap-2 "
-      v-if="toggleFilter">
+
+    <!-- cards filters -->
+    <div class=" z-[1] h-[42rem] relative top-40 w-11/12 mx-auto overflow-y-scroll p-2 grid grid-col-1 gap-2 " v-if="toggleFilter">
       <div class="bg-white w-full h-auto py-1 rounded-lg shadow-xl flex " v-for="n in 10" :key="n">
         <div class="w-2/5 h-full p-2">
           <div
@@ -147,6 +150,7 @@
         </div>
       </div>
     </div>
+
     <!-- botom menu -->
     <div class="bg-[#c6495e] w-full z-[1] h-16 absolute bottom-0  rounded-tl-full rounded-tr-full  ">
       <div
@@ -171,25 +175,35 @@ import {
   IonAvatar,
   IonChip,
   IonLabel,
+  IonMenuButton,
+  menuController
 } from '@ionic/vue';
 
 import iconMap from '@/assets/Icons/customer-info-svgrepo-com.svg'
 import IconRepair from '@/assets/Icons/repair-hammer-svgrepo-com.svg'
 import menuSideBarRight from '@/components/menuSideRightBarComponent.vue'
 import { useTopMenuStore } from '@/stores/storeTopMenu/storeTopMenu.js'
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const router = useRouter()
+const route = useRoute()
 const StoreTopMenu = useTopMenuStore()
-const { toggleBuscar } = storeToRefs(StoreTopMenu)
+const { toggleBuscar, mode } = storeToRefs(StoreTopMenu)
 const { getterToggleView } = useTopMenuStore()
 
 const toggleFilter = computed({
   get() { return toggleBuscar.value },
   set(val) { toggleBuscar.value = val }
 })
+const modeCliente = computed({
+  get() { return mode.value },
+  set(val) { mode.value = val }
+})
+const openFirstMenu = async () => {
+  await menuController.open('first-menu');
+};
 
 
 
