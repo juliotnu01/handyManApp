@@ -1,6 +1,6 @@
 <template>
     <ion-menu menu-id="first-menu" side="end" content-id="main-content">
-        <ion-header class="shadow-none bg-[rgb(15,23,18)] text-[rgb(247,247,250)] font-bold h-40 grid grid-rows-3 gap-4  ">
+        <!-- <ion-header class="shadow-none bg-[rgb(15,23,18)] text-[rgb(247,247,250)] font-bold h-40 grid grid-rows-3 gap-4  ">
             <div class="p-2">
                 <div class=" flex justify-between">
                     <ion-menu-toggle>
@@ -206,7 +206,7 @@
                 <p class="ml-6">En persona</p>
                 </p>
             </div>
-        </ion-content>
+        </ion-content> -->
     </ion-menu>
 </template>
 <script setup lang="ts">
