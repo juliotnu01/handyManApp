@@ -101,10 +101,16 @@ import {
     IonContent,
     IonButton,
 } from '@ionic/vue';
+import { useRoute, useRouter, RouteComponent } from 'vue-router';
+
+
+// const route: RouteComponent = useRoute();
+const router: RouteComponent = useRouter();
 
 const login: Promise<void> = async () => {
     try {
 
+        await router.push('/tabs/tab1');
 
 
     } catch (error) {
