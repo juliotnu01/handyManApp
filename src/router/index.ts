@@ -1,14 +1,24 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 import TabsPage from "../views/TabsPage.vue";
-import { computed } from "vue";
-import { storeToRefs } from "pinia";
-import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
+// import { computed } from "vue";
+// import { storeToRefs } from "pinia";
+// import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/landing",
+    redirect: "/login",
+  },
+  {
+    path: "/welcome",
+    component: () => import("@/views/welcomePage.vue"),
+    name:'welcome.page'
+  },
+  {
+    path: "/login",
+    component: () => import("@/views/LoginPage.vue"),
+    name: "loging.page",
   },
   {
     path: "/landing",
@@ -49,24 +59,24 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from) => {
-  const StoreTopMenu = useTopMenuStore();
-  const { mode } = storeToRefs(StoreTopMenu);
+// router.beforeEach((to, from) => {
+//   const StoreTopMenu = useTopMenuStore();
+//   const { mode } = storeToRefs(StoreTopMenu);
 
-  const modeCliente = computed({
-    get() {
-      return mode.value;
-    },
-    set(val) {
-      mode.value = val;
-    },
-  });
+//   const modeCliente = computed({
+//     get() {
+//       return mode.value;
+//     },
+//     set(val) {
+//       mode.value = val;
+//     },
+//   });
 
-  if (to.path === "landing") {
-    modeCliente.value = true;
-  } else if (to.path === "/tabs/tab1") {
-    modeCliente.value = false;
-  }
-  return true;
-});
+//   if (to.path === "landing") {
+//     modeCliente.value = true;
+//   } else if (to.path === "/tabs/tab1") {
+//     modeCliente.value = false;
+//   }
+//   return true;
+// });
 export default router;
