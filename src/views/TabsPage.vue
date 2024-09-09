@@ -3,38 +3,26 @@
     <menuSideBarRight />
     <ion-router-outlet id="main-content" />
     <!-- top menu -->
-    <div class="bg-[#c6495e] w-full z-[1] h-28 absolute top-0 rounded-bl-3xl rounded-br-3xl " v-show="route.path !== '/tabs/tab2' " >
-      <div class="white bg-transparent h-[95%] w-[99%] mx-auto rounded-bl-3xl rounded-br-3xl border-black border-x-[3px]">
-        <div class="w-full p-4 pt-2 ">
+    <div class="w-full z-[1] h-28 absolute top-0 " v-show="route.path !== '/tabs/tab2' " >
+      <div class=" bg-transparent ">
+        <div class="w-full p-4 pt-2 flex justify-between ">
           <button @click="openFirstMenu">
             <svg width="35px" height="35px" viewBox="0 0 32 32" class="">
-              <path d="M3.205 6.937v4.265h25.59v-4.265h-25.59zM27.729 10.136h-23.457v-2.133h23.457v2.133z" fill="#fff" />
-              <path d="M3.205 18.133h25.59v-4.265h-25.59v4.265zM4.271 14.934h23.457v2.133h-23.457v-2.133z" fill="#fff" />
-              <path d="M3.205 25.063h25.59v-4.265h-25.59v4.265zM4.271 21.864h23.457v2.133h-23.457v-2.133z" fill="#fff" />
+              <path d="M3.205 6.937v4.265h25.59v-4.265h-25.59zM27.729 10.136h-23.457v-2.133h23.457v2.133z" fill="#000" />
+              <path d="M3.205 18.133h25.59v-4.265h-25.59v4.265zM4.271 14.934h23.457v2.133h-23.457v-2.133z" fill="#000" />
+              <path d="M3.205 25.063h25.59v-4.265h-25.59v4.265zM4.271 21.864h23.457v2.133h-23.457v-2.133z" fill="#000" />
             </svg>
           </button>
-        </div>
-        <div class="px-5 flex justify-between  ">
-          <svg width="25px" height="25px" viewBox="0 0 15 15" fill="none" @click="toggleFilter = !toggleFilter">
-            <path d="M0 2.5H15M3 7.5H12M5 12.5H10" stroke="#fff" />
-          </svg>
-          <div class="flex justify-end w-full gap-5 ">
-            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" class=" self-center"
-              @click="getterToggleView(1)">
-              <path
-                d="M3 8.70938C3 7.23584 3 6.49907 3.39264 6.06935C3.53204 5.91678 3.70147 5.79466 3.89029 5.71066C4.42213 5.47406 5.12109 5.70705 6.51901 6.17302C7.58626 6.52877 8.11989 6.70665 8.6591 6.68823C8.85714 6.68147 9.05401 6.65511 9.24685 6.60952C9.77191 6.48541 10.2399 6.1734 11.176 5.54937L12.5583 4.62778C13.7574 3.82843 14.3569 3.42876 15.0451 3.3366C15.7333 3.24444 16.4168 3.47229 17.7839 3.92799L18.9487 4.31624C19.9387 4.64625 20.4337 4.81126 20.7169 5.20409C21 5.59692 21 6.11871 21 7.16229V15.2907C21 16.7642 21 17.501 20.6074 17.9307C20.468 18.0833 20.2985 18.2054 20.1097 18.2894C19.5779 18.526 18.8789 18.293 17.481 17.827C16.4137 17.4713 15.8801 17.2934 15.3409 17.3118C15.1429 17.3186 14.946 17.3449 14.7532 17.3905C14.2281 17.5146 13.7601 17.8266 12.824 18.4507L11.4417 19.3722C10.2426 20.1716 9.64311 20.5713 8.95493 20.6634C8.26674 20.7556 7.58319 20.5277 6.21609 20.072L5.05132 19.6838C4.06129 19.3538 3.56627 19.1888 3.28314 18.7959C3 18.4031 3 17.8813 3 16.8377V8.70938Z"
-                stroke="#fff" stroke-width="1.5" />
-              <path d="M9 6.63867V20.5" stroke="#fff" stroke-width="1.5" />
-              <path d="M15 3V17" stroke="#fff" stroke-width="1.5" />
+          <button @click="openFirstMenu" class="relative  flex">
+            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5835 7.41667C4.5835 3.32056 7.90405 0 12.0002 0C16.0963 0 19.4168 3.32056 19.4168 7.41667V8.33334C19.4168 10.5339 19.7156 12.4847 20.171 13.8507C20.4004 14.539 20.6515 15.0238 20.8818 15.316C21.0523 15.5324 21.1541 15.5761 21.1774 15.5834C21.7248 15.5891 22.1668 16.0346 22.1668 16.5833V16.7917C22.1668 17.344 21.7191 17.7917 21.1668 17.7917H2.8335C2.28121 17.7917 1.8335 17.344 1.8335 16.7917V16.5833C1.8335 16.0346 2.27551 15.5891 2.82292 15.5834C2.84626 15.5761 2.948 15.5324 3.11851 15.316C3.34881 15.0238 3.59994 14.539 3.82936 13.8507C4.2847 12.4847 4.5835 10.5339 4.5835 8.33334V7.41667ZM2.81774 15.5847C2.81773 15.5846 2.81863 15.5844 2.82044 15.5841L2.81886 15.5845C2.81812 15.5847 2.81774 15.5847 2.81774 15.5847Z" fill="#000000"/>
+              <path d="M9.25013 19.5C8.87258 19.5 8.52722 19.7126 8.35723 20.0497C8.18723 20.3869 8.2216 20.791 8.44606 21.0945C9.27818 22.2199 10.5352 23 12.0001 23C13.465 23 14.7221 22.2199 15.5542 21.0945C15.7787 20.791 15.813 20.3869 15.643 20.0497C15.473 19.7126 15.1277 19.5 14.7501 19.5H9.25013Z" fill="#000000"/>
             </svg>
-            <div class=" w-[1px] bg-white h-[2rem] self-center "></div>
-            <svg fill="#fff" width="20px" height="20px" viewBox="0 0 16 16" class=" self-center"
-              @click="getterToggleView(2)">
-              <path data-name="Path 79"
-                d="M-7.5,16h-10a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h10a.5.5,0,0,1,.5.5A.5.5,0,0,1-7.5,16Zm.5-5.5a.5.5,0,0,0-.5-.5h-10a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h10A.5.5,0,0,0-7,10.5Zm0-5A.5.5,0,0,0-7.5,5h-10a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h10A.5.5,0,0,0-7,5.5Zm0-5A.5.5,0,0,0-7.5,0h-10a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h10A.5.5,0,0,0-7,.5Zm-13,0a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h2A.5.5,0,0,0-20,.5Zm0,5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h2A.5.5,0,0,0-20,5.5Zm0,5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h2A.5.5,0,0,0-20,10.5Zm0,5a.5.5,0,0,0-.5-.5h-2a.5.5,0,0,0-.5.5.5.5,0,0,0,.5.5h2A.5.5,0,0,0-20,15.5Z"
-                transform="translate(23)" />
-            </svg>
-          </div>
+            
+            <span class=" inline-flex rounded-full h-3 w-3 bg-sky-500 absolute -right-1">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            </span>
+          </button>
         </div>
       </div>
       <div
@@ -151,20 +139,129 @@
       </div>
     </div>
 
-    <!-- botom menu -->
-    <div class="bg-[#c6495e] w-full z-[1] h-16 absolute bottom-0  rounded-tl-full rounded-tr-full  ">
-      <div
-        class="flex justify-around w-[99%]  rounded-tl-full rounded-tr-full  bg-transparent border-black border-x-[3px] h-[95%]  my-auto mx-auto mt-[3px]">
-        <button @click="() => router.push('/tabs/tab1')"
-          class="mt-2 bg-white rounded-full w-12 h-12 flex justify-center  shadow-2xl">
-          <img :src="iconMap" class=" w-8 h-8 self-center" alt="">
-        </button>
-        <button @click="() => router.push('/tabs/tab2')"
-          class="mt-2 bg-white rounded-full w-12 h-12 flex justify-center  shadow-2xl">
-          <img :src="IconRepair" class=" w-8 h-8 self-center" />
+    <!-- sub boton menu -->
+    <div class="relative top-[85%] h-fit w-[90%] mx-auto flex gap-2">
+      <div class=" bg-white w-10/12 mx-auto h-12 shadow-2xl rounded-md p-2 " >
+        <button @click="setOpen(true)" class=" bg-[#cecece]  p-1 border-solid border-[#cecece] border-[.9px] text-[#fff]  w-full  rounded-lg flex justify-between" >
+          <p class="text-left w-full capitalize font-bold  " > Buscar especialista </p>
+          <!-- <ion-button id="open-modal" expand="block">Open Sheet Modal</ion-button> -->
+          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class=" self-center  " >
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.5C7.51472 5.5 5.5 7.51472 5.5 10C5.5 12.4853 7.51472 14.5 10 14.5C10.7763 14.5 11.5046 14.3041 12.1403 13.9596C12.5244 13.7514 12.8751 13.4888 13.182 13.182C13.4888 12.8751 13.7514 12.5244 13.9596 12.1403C14.3041 11.5046 14.5 10.7763 14.5 10C14.5 7.51472 12.4853 5.5 10 5.5ZM4 10C4 6.68629 6.68629 4 10 4C13.3137 4 16 6.68629 16 10C16 11.032 15.7388 12.0052 15.2784 12.855C15.1212 13.145 14.9409 13.4206 14.7399 13.6792L20.003 18.9423L18.9423 20.003L13.6792 14.7399C13.4206 14.9408 13.1451 15.1212 12.855 15.2784C12.0052 15.7388 11.032 16 10 16C6.68629 16 4 13.3137 4 10Z" fill="#1F2328"/>
+            </svg>
         </button>
       </div>
+      <button  @click="setOpenFiltro(true)" class="bg-white rounded-md h-fit p-1 self-center " >
+        <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-red-600 align-middle  " >
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.90693 3.9999C9.93791 3.99996 9.96894 4.00001 10 4.00001C10.0311 4.00001 10.0621 3.99996 10.0931 3.9999C10.4618 3.99929 10.8242 3.99869 11.147 4.08519C12.0098 4.31636 12.6836 4.99023 12.9148 5.85296C13.0013 6.1758 13.0007 6.53821 13.0001 6.90693C13.0001 6.93792 13 6.96895 13 7.00001H21C21.5523 7.00001 22 7.44772 22 8.00001C22 8.55229 21.5523 9.00001 21 9.00001H13C13 9.03107 13.0001 9.0621 13.0001 9.09309C13.0007 9.46181 13.0013 9.82422 12.9148 10.1471C12.6836 11.0098 12.0098 11.6837 11.147 11.9148C10.8242 12.0013 10.4618 12.0007 10.0931 12.0001C10.0621 12.0001 10.0311 12 10 12C9.96894 12 9.93791 12.0001 9.90692 12.0001C9.5382 12.0007 9.17579 12.0013 8.85295 11.9148C7.99022 11.6837 7.31635 11.0098 7.08519 10.1471C6.99868 9.82421 6.99928 9.46181 6.9999 9.09308C6.99995 9.0621 7 9.03106 7 9.00001H5C4.44772 9.00001 4 8.55229 4 8.00001C4 7.44772 4.44772 7.00001 5 7.00001H7C7 6.96895 6.99995 6.93792 6.9999 6.90693C6.99928 6.53821 6.99868 6.1758 7.08519 5.85296C7.31635 4.99023 7.99022 4.31636 8.85295 4.08519C9.17579 3.99869 9.5382 3.99929 9.90693 3.9999ZM9.49861 6.00536C9.39195 6.01022 9.36685 6.01805 9.37059 6.01704C9.19804 6.06328 9.06327 6.19805 9.01704 6.3706C9.0162 6.37411 9.00963 6.40483 9.00535 6.49861C9.00024 6.61064 9 6.75845 9 7.00001V9.00001C9 9.24156 9.00024 9.38937 9.00535 9.5014C9.01021 9.60806 9.01804 9.63315 9.01704 9.62942C9.06327 9.80196 9.19804 9.93674 9.37059 9.98297C9.36685 9.98197 9.39195 9.98979 9.49861 9.99466C9.61063 9.99977 9.75844 10 10 10C10.2416 10 10.3894 9.99977 10.5014 9.99466C10.608 9.98979 10.6331 9.98197 10.6294 9.98297C10.802 9.93674 10.9367 9.80196 10.983 9.62942C10.982 9.63315 10.9898 9.60806 10.9946 9.5014C10.9998 9.38937 11 9.24156 11 9.00001V7.00001C11 6.75845 10.9998 6.61064 10.9946 6.49861C10.9898 6.39196 10.982 6.36686 10.983 6.3706M9.49861 6.00536C9.61063 6.00025 9.75844 6.00001 10 6.00001L9.49861 6.00536ZM10 6.00001C10.2416 6.00001 10.3894 6.00025 10.5014 6.00536L10 6.00001ZM10.5014 6.00536C10.5952 6.00963 10.6259 6.0162 10.6294 6.01704L10.5014 6.00536ZM10.6298 6.01713C10.6298 6.01713 10.6296 6.0171 10.6294 6.01704L10.6298 6.01713ZM15.9069 11.9999C15.9379 12 15.9689 12 16 12C16.0311 12 16.0621 12 16.0931 11.9999C16.4618 11.9993 16.8242 11.9987 17.147 12.0852C18.0098 12.3164 18.6836 12.9902 18.9148 13.853C19.0013 14.1758 19.0007 14.5382 19.0001 14.9069C19.0001 14.9379 19 14.9689 19 15H21C21.5523 15 22 15.4477 22 16C22 16.5523 21.5523 17 21 17H19C19 17.0311 19.0001 17.0621 19.0001 17.0931C19.0007 17.4618 19.0013 17.8242 18.9148 18.1471C18.6836 19.0098 18.0098 19.6837 17.147 19.9148C16.8242 20.0013 16.4618 20.0007 16.0931 20.0001C16.0621 20.0001 16.0311 20 16 20C15.9689 20 15.9379 20.0001 15.9069 20.0001C15.5382 20.0007 15.1758 20.0013 14.853 19.9148C13.9902 19.6837 13.3164 19.0098 13.0852 18.1471C12.9987 17.8242 12.9993 17.4618 12.9999 17.0931C12.9999 17.0621 13 17.0311 13 17H5C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15H13C13 14.969 12.9999 14.9379 12.9999 14.9069C12.9993 14.5382 12.9987 14.1758 13.0852 13.853C13.3164 12.9902 13.9902 12.3164 14.853 12.0852C15.1758 11.9987 15.5382 11.9993 15.9069 11.9999ZM15.4986 14.0054C15.392 14.0102 15.3669 14.018 15.3706 14.017C15.198 14.0633 15.0633 14.1981 15.017 14.3706C15.018 14.3669 15.0102 14.392 15.0054 14.4986C15.0002 14.6106 15 14.7585 15 15V17C15 17.2416 15.0002 17.3894 15.0054 17.5014C15.0102 17.6081 15.018 17.6332 15.017 17.6294C15.0633 17.802 15.198 17.9367 15.3706 17.983C15.3669 17.982 15.392 17.9898 15.4986 17.9947C15.6106 17.9998 15.7584 18 16 18C16.2416 18 16.3894 17.9998 16.5014 17.9947C16.608 17.9898 16.6331 17.982 16.6294 17.983C16.802 17.9367 16.9367 17.802 16.983 17.6294C16.982 17.6332 16.9898 17.6081 16.9946 17.5014C16.9998 17.3894 17 17.2416 17 17V15C17 14.7585 16.9998 14.6106 16.9946 14.4986C16.9898 14.392 16.982 14.3669 16.983 14.3706C16.9367 14.1981 16.802 14.0633 16.6294 14.017C16.6331 14.018 16.608 14.0102 16.5014 14.0054C16.3894 14.0002 16.2416 14 16 14C15.7584 14 15.6106 14.0002 15.4986 14.0054Z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="bg-white rounded-md h-fit p-1 self-center " >
+        <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-red-600 align-middle  ">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 4.5L4.5 3.75H10.5L11.25 4.5V10.5L10.5 11.25H4.5L3.75 10.5V4.5ZM5.25 5.25V9.75H9.75V5.25H5.25ZM13.5 3.75L12.75 4.5V10.5L13.5 11.25H19.5L20.25 10.5V4.5L19.5 3.75H13.5ZM14.25 9.75V5.25H18.75V9.75H14.25ZM17.25 20.25H15.75V17.25H12.75V15.75H15.75V12.75H17.25V15.75H20.25V17.25H17.25V20.25ZM4.5 12.75L3.75 13.5V19.5L4.5 20.25H10.5L11.25 19.5V13.5L10.5 12.75H4.5ZM5.25 18.75V14.25H9.75V18.75H5.25Z" fill="currentColor"/>
+        </svg>
+      </button>
     </div>
+
+    <!-- botom menu -->
+    <div class="bg-white w-[90%] ml-6 z-[1] h-16 absolute bottom-4 rounded-2xl shadow-lg  ">
+      <div class="flex justify-around w-[99%] h-[95%]  my-auto mx-auto mt-[3px]">
+        <button @click="() => router.push('/tabs/tab1')" class=" w-fit h-fit self-center ">
+          <svg fill="#000000" width="35px" height="35px" viewBox="-4.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" class="mx-auto -mb-2">
+          <path d="M19.469 12.594l3.625 3.313c0.438 0.406 0.313 0.719-0.281 0.719h-2.719v8.656c0 0.594-0.5 1.125-1.094 1.125h-4.719v-6.063c0-0.594-0.531-1.125-1.125-1.125h-2.969c-0.594 0-1.125 0.531-1.125 1.125v6.063h-4.719c-0.594 0-1.125-0.531-1.125-1.125v-8.656h-2.688c-0.594 0-0.719-0.313-0.281-0.719l10.594-9.625c0.438-0.406 1.188-0.406 1.656 0l2.406 2.156v-1.719c0-0.594 0.531-1.125 1.125-1.125h2.344c0.594 0 1.094 0.531 1.094 1.125v5.875z"></path>
+          </svg>
+          <p class="  font-bold text-center text-[12px] dark:text-black "> Inicio</p>
+        </button>
+        <button @click="() => router.push('/tabs/tab1')" class=" w-fit h-fit self-center ">
+          <svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="mx-auto"
+            width="25px" height="25px" viewBox="0 0 32 32" xml:space="preserve">
+          <path class="stone_een" d="M27.857,27.864C27.935,29.572,26.571,31,24.861,31H7.139c-1.71,0-3.075-1.428-2.997-3.136L4.957,9.955
+            C4.981,9.42,5.421,9,5.956,9h20.089c0.535,0,0.975,0.42,0.999,0.955L27.857,27.864z M16.185,1.003C12.787,0.901,10,3.625,10,7v1h2V7
+            c0-2.209,1.791-4,4-4s4,1.791,4,4v1h2V7.252C22,3.966,19.468,1.101,16.185,1.003z"/>
+          </svg>
+          <p class="  font-bold text-center text-[12px] dark:text-black "> Compras</p>
+        </button>
+        <button @click="() => router.push('/tabs/tab1')" class=" w-fit h-fit self-center  ">
+          <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="mx-auto"
+              width="25px" height="25px" viewBox="0 0 503.379 503.379"
+              xml:space="preserve">
+            <g>
+              <path d="M458.091,128.116v326.842c0,26.698-21.723,48.421-48.422,48.421h-220.92c-26.699,0-48.421-21.723-48.421-48.421V242.439
+                c6.907,1.149,13.953,1.894,21.184,1.894c5.128,0,10.161-0.381,15.132-0.969v211.594c0,6.673,5.429,12.104,12.105,12.104h220.92
+                c6.674,0,12.105-5.432,12.105-12.104V128.116c0-6.676-5.432-12.105-12.105-12.105H289.835c0-12.625-1.897-24.793-5.297-36.315
+                h125.131C436.368,79.695,458.091,101.417,458.091,128.116z M159.49,228.401c-62.973,0-114.202-51.229-114.202-114.199
+                C45.289,51.229,96.517,0,159.49,0c62.971,0,114.202,51.229,114.202,114.202C273.692,177.172,222.461,228.401,159.49,228.401z
+                M159.49,204.19c49.618,0,89.989-40.364,89.989-89.988c0-49.627-40.365-89.991-89.989-89.991
+                c-49.626,0-89.991,40.364-89.991,89.991C69.499,163.826,109.87,204.19,159.49,204.19z M227.981,126.308
+                c6.682,0,12.105-5.423,12.105-12.105s-5.423-12.105-12.105-12.105h-56.386v-47.52c0-6.682-5.423-12.105-12.105-12.105
+                s-12.105,5.423-12.105,12.105v59.625c0,6.682,5.423,12.105,12.105,12.105H227.981z M367.697,224.456h-131.14
+                c-6.682,0-12.105,5.423-12.105,12.105c0,6.683,5.423,12.105,12.105,12.105h131.14c6.685,0,12.105-5.423,12.105-12.105
+                C379.803,229.879,374.382,224.456,367.697,224.456z M367.91,297.885h-131.14c-6.682,0-12.105,5.42-12.105,12.105
+                s5.423,12.105,12.105,12.105h131.14c6.685,0,12.104-5.42,12.104-12.105S374.601,297.885,367.91,297.885z M367.91,374.353h-131.14
+                c-6.682,0-12.105,5.426-12.105,12.105c0,6.685,5.423,12.104,12.105,12.104h131.14c6.685,0,12.104-5.42,12.104-12.104
+                C380.015,379.778,374.601,374.353,367.91,374.353z"/>
+            </g>
+            </svg>
+            <p class="  font-bold text-center text-[12px] dark:text-black "> Historial</p>
+        </button>
+        <ion-item class=" self-center  " >
+            <ion-avatar #="start">
+              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+            </ion-avatar>
+        </ion-item>
+      </div>
+    </div>
+
+    <ion-modal :is-open="isOpenBuscarEspesialista" 
+      :initial-breakpoint="0.75"
+      :breakpoints="[0, 0.25, 0.5, 0.75]"
+      handle-behavior="cycle">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Buscar especialista</ion-title>
+          <ion-buttons slot="end">
+            <ion-button @click="setOpen(false)">
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 7.63636L14 4.5C14 4.22386 13.7761 4 13.5 4L4.5 4C4.22386 4 4 4.22386 4 4.5L4 19.5C4 19.7761 4.22386 20 4.5 20L13.5 20C13.7761 20 14 19.7761 14 19.5L14 16.3636" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 12L21 12M21 12L18.0004 8.5M21 12L18 15.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
+          reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
+          dicta.
+        </p>
+      </ion-content>
+    </ion-modal>
+
+    <ion-modal :is-open="isOpenFiltrar" 
+      :initial-breakpoint="0.75"
+      :breakpoints="[0, 0.25, 0.5, 0.75]"
+      handle-behavior="cycle">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Filtros</ion-title>
+          <ion-buttons slot="end">
+            <ion-button @click="setOpenFiltro(false)">
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 7.63636L14 4.5C14 4.22386 13.7761 4 13.5 4L4.5 4C4.22386 4 4 4.22386 4 4.5L4 19.5C4 19.7761 4.22386 20 4.5 20L13.5 20C13.7761 20 14 19.7761 14 19.5L14 16.3636" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 12L21 12M21 12L18.0004 8.5M21 12L18 15.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
+          reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
+          dicta.
+        </p>
+      </ion-content>
+    </ion-modal>
   </ion-page>
 </template>
 
@@ -174,9 +271,15 @@ import {
   IonRouterOutlet,
   IonAvatar,
   IonChip,
+  IonItem,
   IonLabel,
   IonMenuButton,
-  menuController
+  menuController,
+  IonModal,
+  IonContent,
+  IonButton,
+  IonToolbar,
+  IonTitle
 } from '@ionic/vue';
 
 import iconMap from '@/assets/Icons/customer-info-svgrepo-com.svg'
@@ -184,7 +287,7 @@ import IconRepair from '@/assets/Icons/repair-hammer-svgrepo-com.svg'
 import menuSideBarRight from '@/components/menuSideRightBarComponent.vue'
 import { useTopMenuStore } from '@/stores/storeTopMenu/storeTopMenu.js'
 import { useRouter, useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const router = useRouter()
@@ -205,6 +308,14 @@ const openFirstMenu = async () => {
   await menuController.open('first-menu');
 };
 
+
+const isOpenBuscarEspesialista = ref(false);
+
+const setOpen = (open: boolean) => (isOpenBuscarEspesialista.value = open);
+
+const isOpenFiltrar = ref(false);
+
+const setOpenFiltro = (open: boolean) => (isOpenFiltrar.value = open);
 
 
 </script>

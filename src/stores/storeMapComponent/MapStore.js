@@ -6,7 +6,7 @@ export const useMapStore = defineStore('googleMaps', {
         return {
             google: {},
             loader: new Loader({
-                apiKey: "AIzaSyDjc7g2sDf0u4tc_JiUzA1brt0V3PcDSrk",
+                apiKey: "AIzaSyCnT6JLRBXZfkZKRLhxvdNPyiz0lbUsx5I",
                 version: "weekly",
                 libraries: ['places']
             }),

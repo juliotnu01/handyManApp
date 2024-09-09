@@ -5,7 +5,8 @@ const config: CapacitorConfig = {
   appName: 'handyManApp',
   webDir: 'dist',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http',
+    allowNavigation: ["*"]
   }
 };
 

@@ -3,19 +3,19 @@
         <ion-content>
             <div class=" bg-red-100  h-full flex flex-col gap-5 p-5 justify-end pb-10 ">
                 <div class="mb-40">
-                    <ion-img class="animate-bounce  mx-auto  w-60 h-60" src="/src/assets/img/logo.png"> </ion-img>
+                    <img class="animate-bounce  mx-auto  w-60 h-60" src="../assets/Icons/logo.png" />
                 </div>
                 <div>
-                    <input type="text" placeholder="Ingrese correo electronico "
-                        class="w-full h-12 px-5 rounded-xl text-black border-solid border-[1px]">
+                    <input type="text" placeholder="Ingrese correo electronico " v-model="model.email"
+                        class="w-full h-12 px-5 rounded-xl text-black border-solid border-[1px] ">
                 </div>
                 <div>
-                    <input type="password" placeholder="Ingrese contraseña"
+                    <input type="password" placeholder="Ingrese contraseña" v-model="model.password"
                         class="w-full h-12 px-5 rounded-xl text-black border-solid border-[1px]">
                 </div>
                 <div class="flex justify-between text-[12px]">
                     <div class="flex gap-2">
-                        <input type="checkbox" id="checkboxLogin" placeholder="Ingrese contraseña">
+                        <input type="checkbox" id="checkboxLogin">
                         <label for="checkboxLogin" class="self-center "> Mantener sesion</label>
                     </div>
                     <div>
@@ -27,7 +27,7 @@
                     <p class="text-[#cecece]">o</p>
                     <div class="border w-full border-t-0 border-l-0 border-r-0 self-center "></div>
                 </div>
-                <div class="flex justify-center gap-2">
+                <div class="flex justify-around gap-2">
                     <button>
                         <svg width="35px" height="35px" viewBox="0 0 32 32" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -76,8 +76,7 @@
                             <p class=" self-center ">
                                 Entrar
                             </p>
-                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 24 24">
+                            <svg v-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                     stroke-width="4">
                                 </circle>
@@ -95,26 +94,61 @@
 
 <script setup lang="ts">
 import {
-    IonImg,
     IonInput,
     IonPage,
     IonContent,
     IonButton,
+    toastController
 } from '@ionic/vue';
+import axios from 'axios';
+import { ref, Ref } from 'vue';
 import { useRoute, useRouter, RouteComponent } from 'vue-router';
-
-
+const BaseServer = ref('http://18.218.213.31')
+import { Preferences } from '@capacitor/preferences';
 // const route: RouteComponent = useRoute();
 const router: RouteComponent = useRouter();
+const model: any = ref({
+    email: '',
+    password: ''
+})
+
+const loading: Ref<Boolean> = ref(false);
+
+const showToast = async (message = '') => {
+    const toast = await toastController.create({
+        message: message,
+        duration: 2000
+    });
+    toast.present();
+};
+
 
 const login: Promise<void> = async () => {
     try {
 
-        await router.push('/tabs/tab1');
+        loading.value = true
+        let { data } = await axios.post(`${BaseServer.value}/api/verify-login`, model.value)
+        await Preferences.set({
+            key: 'name',
+            value: data.user.email,
+        });
+        await Preferences.set({
+            key: 'user',
+            value: JSON.stringify(data.user),
+        });
+        await Preferences.set({
+            key: 'valid_user',
+            value: data.valid,
+        });
+        showToast("Session iniciada con exito...")
+        await router.push({name: 'home.map'});
+        loading.value = false
 
 
-    } catch (error) {
-        console.log(error);
+
+
+    } catch (error: any) {
+        showToast(error);
     }
 }
 

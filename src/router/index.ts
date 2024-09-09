@@ -1,24 +1,27 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
-import { RouteRecordRaw } from "vue-router";
+import { RouteRecordRaw, useRoute } from "vue-router";
 import TabsPage from "../views/TabsPage.vue";
 // import { computed } from "vue";
 // import { storeToRefs } from "pinia";
 // import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
+import { Preferences } from "@capacitor/preferences";
+const route: any = useRoute();
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: "/login",
+    name: "root.page",
   },
   {
     path: "/welcome",
     component: () => import("@/views/welcomePage.vue"),
-    name:'welcome.page'
+    name: "welcome.page",
   },
   {
     path: "/login",
     component: () => import("@/views/LoginPage.vue"),
-    name: "loging.page",
+    name: "login.page",
   },
   {
     path: "/landing",
@@ -41,6 +44,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "tab1",
         component: () => import("@/views/Tab1Page.vue"),
+        name: "home.map",
       },
       {
         path: "tab2",
@@ -59,24 +63,17 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from) => {
-//   const StoreTopMenu = useTopMenuStore();
-//   const { mode } = storeToRefs(StoreTopMenu);
-
-//   const modeCliente = computed({
-//     get() {
-//       return mode.value;
-//     },
-//     set(val) {
-//       mode.value = val;
-//     },
-//   });
-
-//   if (to.path === "landing") {
-//     modeCliente.value = true;
-//   } else if (to.path === "/tabs/tab1") {
-//     modeCliente.value = false;
-//   }
-//   return true;
-// });
+router.beforeEach(async (to, from) => {
+  // const { value: validUser } = await Preferences.get({ key: "valid_user" });
+  // if (!validUser) {
+  //   return router.push({ name: "login.page" });
+  // } else if (
+  //   (validUser && to.name == "login.page") ||
+  //   from.name == "login.page"
+  // ) {
+  //   return router.push({ name: "home.map" });
+  // } else {
+    return true;
+  // }
+});
 export default router;
