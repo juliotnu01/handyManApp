@@ -65,8 +65,6 @@ import SwiperClass from 'swiper';
 let swiperInstance = ref<SwiperClass | null>(null);
 
 const changeSlide = (index: number) => {
-    console.log(index);
-    
     if (swiperInstance.value) {
         swiperInstance.value.slideTo(index);
     }

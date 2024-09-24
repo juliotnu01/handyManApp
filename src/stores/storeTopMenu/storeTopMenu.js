@@ -5,7 +5,7 @@ export const useTopMenuStore = defineStore("TopMenu", {
         return {
             toogleView: 1,
             toggleBuscar: false,
-            mode: false
+            mode: true
         };
     },
     

@@ -151,11 +151,11 @@ const modeCliente = computed({
   set(val) { mode.value = val }
 })
 const changeMode = () => {
-  if (modeCliente.value) {
-    router.push('/landing')
-  } else {
-    router.push('/tabs/tab1')
-  }
+  // if (modeCliente.value) {
+  //   router.push('/landing')
+  // } else {
+  //   router.push('/tabs/tab1')
+  // }
 }
 
 const logout: Promise<void> = async () => {
@@ -167,7 +167,7 @@ const logout: Promise<void> = async () => {
   }
 }
 
-</script>
+</script>   
 <style scoped lang="less">
 ion-menu::part(container) {
   border-radius: 0 20px 20px 0;
