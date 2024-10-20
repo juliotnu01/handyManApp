@@ -1,7 +1,7 @@
 <script setup>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonList, IonAvatar, IonInput } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonList, IonAvatar, IonInput, toastController } from '@ionic/vue';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore'
@@ -11,7 +11,7 @@ const router = useRouter()
 const RegisterEspecialistaStore = useTopRegisterEspecialista();
 
 const { getTipoServicios, registerEspecialista } = RegisterEspecialistaStore;
-const { tiposServicios, especialista } = storeToRefs(RegisterEspecialistaStore);
+const { tiposServicios, especialista, MessageToaste, showToastM } = storeToRefs(RegisterEspecialistaStore);
 
 // imagen de usuario
 const imgUser = ref(null);
@@ -23,6 +23,8 @@ const identicacionPersonal = ref({
     frontal: null,
     trasera: null,
 })
+const currentToast = ref(null);
+
 
 
 const changeFileImgUser = (e) => {
@@ -82,9 +84,40 @@ const addCustomItem = () => {
     newItem.value.nombre = '';  // Limpia el input después de agregar la opción
 };
 
+
+const showToast = async (message = '') => {
+    try {
+        // Si hay un toast activo, intentamos cerrarlo
+        if (currentToast.value) {
+            await currentToast.value.dismiss().catch(() => {
+                // En caso de que ya haya sido cerrado
+                console.log("El toast ya fue cerrado.");
+            });
+            currentToast.value = null; // Reiniciamos la referencia
+        }
+
+        // Creamos el nuevo toast
+        currentToast.value = await toastController.create({
+            message: message,
+            duration: 2000
+        });
+        await currentToast.value.present();
+        showToastM.value = false
+    } catch (error) {
+        console.error('Error mostrando el toast:', error);
+    }
+};
+
 onMounted(() => {
-    getTipoServicios()
-})
+    getTipoServicios();
+
+    // Observar cambios en showToastM y ejecutar el toast cuando cambie a true
+    watch(showToastM, async (newVal) => {
+        if (newVal) {
+            await showToast(MessageToaste.value);
+        }
+    });
+});
 
 
 </script>
@@ -379,8 +412,9 @@ onMounted(() => {
                     </div>
                 </ion-accordion>
             </ion-accordion-group>
-            <div class="mx-4 " >
-                <button @click="registerEspecialista"  class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
+            <div class="mx-4 ">
+                <button @click="registerEspecialista"
+                    class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
                     Registrar
                 </button>
             </div>

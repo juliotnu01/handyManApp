@@ -123,7 +123,7 @@ const showToast = async (message = '') => {
 };
 
 
-const login: Promise<void> = async () => {
+const login: any = async () => {
     try {
 
         loading.value = true

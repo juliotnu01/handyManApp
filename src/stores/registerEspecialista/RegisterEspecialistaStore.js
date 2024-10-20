@@ -8,6 +8,8 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
             toggleBuscar: false,
             mode: true,
             tiposServicios: [],
+            showToastM: false,
+            MessageToaste: '',
             especialista: {
                 nombre: '',
                 apellido: '',
@@ -38,10 +40,42 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                 console.log(error);
             }
         },
+        validateEspecialista() {
+            const { nombre, apellido, fecha_nacimiento, correo, numero_identificacion, certificados, documento_identidad, servicios, avatar } = this.especialista;
+
+            if (!nombre || !apellido || !fecha_nacimiento || !correo || !numero_identificacion) {
+                return false;
+            }
+
+            if (!Array.isArray(certificados) || certificados.length === 0) {
+                return false;
+            }
+
+            if (!documento_identidad || !documento_identidad.frontal || !documento_identidad.trasera) {
+                return false;
+            }
+
+            if (!Array.isArray(servicios) || servicios.length === 0) {
+                return false;
+            }
+
+            if (!avatar) {
+                return false;
+            }
+
+            return true;
+        },
         async registerEspecialista() {
             try {
 
-                const formData = new FormData(); 
+                if (!this.validateEspecialista()) {
+                    console.log("Todos los campos requeridos deben estar completos.");
+                    this.MessageToaste = 'Todos los campos requeridos deben estar completos.';
+                    this.showToastM = true;
+                    return;
+                }
+
+                const formData = new FormData();
 
                 // Agregamos los campos no relacionados con archivos
                 formData.append('nombre', this.especialista.nombre);
