@@ -76,7 +76,8 @@
                             <p class=" self-center ">
                                 Entrar
                             </p>
-                            <svg v-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                            <svg v-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none"
+                                viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                     stroke-width="4">
                                 </circle>
@@ -95,12 +96,11 @@
 <script setup lang="ts">
 import {
     IonInput,
-    IonPage,
-    IonContent,
-    IonButton,
-    toastController
+    toastController,
+    IonImg, IonButtons, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonMenu, IonTabButton, IonTabs, IonLabel, IonIcon, IonRouterOutlet, menuController
 } from '@ionic/vue';
 import axios from 'axios';
+
 import { ref, Ref } from 'vue';
 import { useRoute, useRouter, RouteComponent } from 'vue-router';
 const BaseServer = ref('http://18.218.213.31')
@@ -141,7 +141,7 @@ const login: any = async () => {
             value: data.valid,
         });
         showToast("Session iniciada con exito...")
-        await router.push({name: 'home.map'});
+        await router.push({ name: 'home.map' });
         loading.value = false
 
 

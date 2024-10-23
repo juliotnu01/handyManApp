@@ -1,7 +1,7 @@
 <template>
     <ion-page>
         <div class="flex justify-between w-full dark:bg-white ">
-            <ion-menu-button class=" dark:text-black " ></ion-menu-button>
+            <ion-menu-button class=" dark:text-black "></ion-menu-button>
             <div class="flex  justify-center ">
                 <img class=" w-34 h-6 self-center" :src="logoname" alt="" srcset="">
                 <img class=" w-10 h-10 self-center" :src="logo" alt="" srcset="">
@@ -14,10 +14,11 @@
                 <ion-badge color="black">+99</ion-badge>
             </ion-button>
         </div>
-        <ion-content  class="h-[100rem] relative">
+        <ion-content class="h-[100rem] relative">
             <div class=" h-[3rem] mx-4 mt-2 -mb-2 fixed w-11/12 z-[100] ">
                 <label for="search" class="flex relative ">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="absolute mt-[0.68rem] ml-2  ">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                        class="absolute mt-[0.68rem] ml-2  ">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M10 5.5C7.51472 5.5 5.5 7.51472 5.5 10C5.5 12.4853 7.51472 14.5 10 14.5C10.7763 14.5 11.5046 14.3041 12.1403 13.9596C12.5244 13.7514 12.8751 13.4888 13.182 13.182C13.4888 12.8751 13.7514 12.5244 13.9596 12.1403C14.3041 11.5046 14.5 10.7763 14.5 10C14.5 7.51472 12.4853 5.5 10 5.5ZM4 10C4 6.68629 6.68629 4 10 4C13.3137 4 16 6.68629 16 10C16 11.032 15.7388 12.0052 15.2784 12.855C15.1212 13.145 14.9409 13.4206 14.7399 13.6792L20.003 18.9423L18.9423 20.003L13.6792 14.7399C13.4206 14.9408 13.1451 15.1212 12.855 15.2784C12.0052 15.7388 11.032 16 10 16C6.68629 16 4 13.3137 4 10Z"
                             fill="#1F2328" />
@@ -46,7 +47,8 @@
                     </swiper-slide>
                     <swiper-slide
                         class="bg-red-100 rounded-xl relative  h-[3rem] text-center flex justify-center border-red-300 border-[1px]">
-                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" class=" self-center text-red-400 ">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
+                            class=" self-center text-red-400 ">
                             <path
                                 d="M18.5 3H16C15.7239 3 15.5 3.22386 15.5 3.5V3.55891L19 6.35891V3.5C19 3.22386 18.7762 3 18.5 3Z"
                                 fill="currentColor" />
@@ -64,7 +66,8 @@
                     </swiper-slide>
                     <swiper-slide
                         class="bg-red-100 rounded-xl relative  h-[3rem] text-center flex justify-center border-red-300 border-[1px]">
-                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" class=" self-center text-red-400">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
+                            class=" self-center text-red-400">
                             <path
                                 d="M11 10.5C11 7.46243 13.4624 5 16.5 5C19.5376 5 22 7.46243 22 10.5C22 13.5376 19.5376 16 16.5 16C13.4624 16 11 13.5376 11 10.5Z"
                                 stroke="currentColor" stroke-width="1.5" />
@@ -81,22 +84,28 @@
                     </swiper-slide>
                     <swiper-slide
                         class="bg-red-100 rounded-xl relative  h-[3rem] text-center flex justify-center border-red-300 border-[1px]">
-                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" class=" self-center text-red-400">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
+                            class=" self-center text-red-400">
                             <path
                                 d="M4.41003 16.75C4.17003 19.64 6.35003 22 9.25003 22H14.04C17.3 22 19.54 19.37 19 16.15C18.43 12.77 15.17 10 11.74 10C8.02003 10 4.72003 13.04 4.41003 16.75Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path
                                 d="M10.47 7.5C11.8507 7.5 12.97 6.38071 12.97 5C12.97 3.61929 11.8507 2.5 10.47 2.5C9.08926 2.5 7.96997 3.61929 7.96997 5C7.96997 6.38071 9.08926 7.5 10.47 7.5Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path
                                 d="M17.3 8.69995C18.4046 8.69995 19.3 7.80452 19.3 6.69995C19.3 5.59538 18.4046 4.69995 17.3 4.69995C16.1955 4.69995 15.3 5.59538 15.3 6.69995C15.3 7.80452 16.1955 8.69995 17.3 8.69995Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path
                                 d="M21 12.7C21.8284 12.7 22.5 12.0284 22.5 11.2C22.5 10.3715 21.8284 9.69995 21 9.69995C20.1716 9.69995 19.5 10.3715 19.5 11.2C19.5 12.0284 20.1716 12.7 21 12.7Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path
                                 d="M3.96997 10.7C5.07454 10.7 5.96997 9.80452 5.96997 8.69995C5.96997 7.59538 5.07454 6.69995 3.96997 6.69995C2.8654 6.69995 1.96997 7.59538 1.96997 8.69995C1.96997 9.80452 2.8654 10.7 3.96997 10.7Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                         <span class="top-full text-[10px] text-center absolute w-full font-bold "> Mascotas</span>
                     </swiper-slide>
@@ -139,7 +148,8 @@
 
 
                         </svg>
-                        <span class="top-full text-[10px] text-center absolute w-full font-bold "> Serv turisticos</span>
+                        <span class="top-full text-[10px] text-center absolute w-full font-bold "> Serv
+                            turisticos</span>
                     </swiper-slide>
                     <swiper-slide
                         class="bg-red-100 rounded-xl relative  h-[3rem] text-center flex justify-center border-red-300 border-[1px]">
@@ -253,10 +263,13 @@
                             </div>
                             <div class="absolute -bottom-18">
                                 <div class="flex flex-col  w-[95%] mx-1 leading-4">
-                                    <span class="text-[16px] font-bold font-sans line-clamp-1 ">Lorem ipsum dolor sit amet,
-                                        consectetur adipisicing elit. Doloribus cupiditate rerum quis reprehenderit iusto
+                                    <span class="text-[16px] font-bold font-sans line-clamp-1 ">Lorem ipsum dolor sit
+                                        amet,
+                                        consectetur adipisicing elit. Doloribus cupiditate rerum quis reprehenderit
+                                        iusto
                                         sint minus
-                                        sunt adipisci similique, voluptas impedit tempora ea exercitationem veniam itaque
+                                        sunt adipisci similique, voluptas impedit tempora ea exercitationem veniam
+                                        itaque
                                         aperiam,
                                         incidunt dolore sapiente. </span>
                                     <span class="text-[12px] text-[#cecece] font-bold font-sans">Lorem ipsum dolor sit
@@ -304,7 +317,8 @@
                             <div class="absolute bottom-2">
                                 <div class="flex flex-col  w-[95%] mx-1 leading-4">
                                     <span class="text-[16px] font-bold font-sans line-clamp-1 text-white ">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus cupiditate rerum
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus cupiditate
+                                        rerum
                                         quis reprehenderit iusto sint minus sunt adipisci similique, voluptas impedit
                                         tempora ea exercitationem veniam itaque aperiam, incidunt dolore sapiente.
                                     </span>
@@ -335,8 +349,9 @@
                         class="text-blue-400 hover:text-blue-800 self-center">Ver mas</button>
                 </div>
                 <div class="">
-                    <swiper :loop="true" :centeredSlides="true" :autoplay="{ delay: 5000, disableOnInteraction: false, }"
-                        :modules="modules3" :pagination="{ clickable: false, }" class=" h-[12rem]  rounded-xl">
+                    <swiper :loop="true" :centeredSlides="true"
+                        :autoplay="{ delay: 5000, disableOnInteraction: false, }" :modules="modules3"
+                        :pagination="{ clickable: false, }" class=" h-[12rem]  rounded-xl">
                         <swiper-slide
                             :class="` h-full rounded-xl backdrop-saturate-200 bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=${n}')] shadow-xl `"
                             v-for="n in 4" :key="n">
@@ -350,7 +365,8 @@
                                     <span
                                         class="line-clamp-2 absolute  left-2 font-bold text-[18px] text-white leading-5 top-14 w-2/3  ">Lorem,
                                         ipsum dolor sit amet consectetur adipisicing elit.
-                                        Assumenda, maxime dolorum, saepe est consequatur dolore provident, ex omnis sed eius
+                                        Assumenda, maxime dolorum, saepe est consequatur dolore provident, ex omnis sed
+                                        eius
                                         labore! Molestias vitae odit expedita quod cumque voluptas ratione
                                         asperiores!
                                     </span>
@@ -379,8 +395,24 @@
         </ion-content>
     </ion-page>
 </template>
-<script lang="ts" setup >
-import { IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
+<script lang="ts" setup>
+import {
+    IonImg,
+    IonHeader,
+    IonButtons,
+    IonPage,
+    IonMenu,
+    IonContent,
+    IonMenuButton,
+    IonButton,
+    IonBadge,
+    IonChip,
+    IonAvatar,
+    IonLabel,
+    IonIcon,
+    IonItem,
+    IonListHeader
+} from '@ionic/vue';
 import logo from '@/assets/Icons/logo.png'
 import logoname from '@/assets/Icons/logo-name.png'
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -415,7 +447,7 @@ const router = useRouter()
 
 
 </script>
-<style scoped lang="less" >
+<style scoped lang="less">
 ion-menu::part(container) {
     border-radius: 0 20px 20px 0;
 
