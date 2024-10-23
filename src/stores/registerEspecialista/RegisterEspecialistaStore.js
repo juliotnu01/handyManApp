@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia";
+import { Preferences } from '@capacitor/preferences';
 axios.defaults.baseURL = 'http://localhost:8000/api'
 export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
     state() {
@@ -19,8 +20,10 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                 documento_identidad: null,
                 numero_identificacion: '',
                 servicios: [],
-                avatar: null
-            }
+                avatar: null,
+            },
+            error: null,
+            loading: false,
         };
     },
 
@@ -76,8 +79,11 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                 }
 
                 const formData = new FormData();
+                const { value } = await Preferences.get({ key: 'user' });
+                let user = JSON.parse(value)
 
                 // Agregamos los campos no relacionados con archivos
+                formData.append('user_id', user.id);
                 formData.append('nombre', this.especialista.nombre);
                 formData.append('apellido', this.especialista.apellido);
                 formData.append('fecha_nacimiento', this.especialista.fecha_nacimiento);
@@ -106,10 +112,16 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                 if (this.especialista.documento_identidad.trasera) {
                     formData.append('documento_identidad[trasera]', this.especialista.documento_identidad.trasera);
                 }
+                this.loading = true
+                let { data } = await axios.post('/register-especialista', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                this.loading = false
 
-                await axios.post('/register-especialista', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             } catch (error) {
-                console.log(error);
+                let { response } = error
+                let { data } = response
+                let { message } = data
+                this.error = message
+
 
             }
         }
