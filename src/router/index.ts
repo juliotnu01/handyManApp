@@ -1,11 +1,21 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw, useRoute } from "vue-router";
 import TabsPage from "../views/TabsPage.vue";
+
 // import { computed } from "vue";
-// import { storeToRefs } from "pinia";
+import { storeToRefs } from "pinia";
+// import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
 // import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
 import { Preferences } from "@capacitor/preferences";
+import axios from "axios";
 const route: any = useRoute();
+
+
+const checkCondition = async () => {
+  const { value } = await Preferences.get({ key: "revision" });
+  let { revision } = JSON.parse(value);
+  return revision;
+};
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +34,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "login.page",
   },
   {
+    path: "/revision-especialista",
+    component: () => import("@/views/revisionEspecialista.vue"),
+    name: "revision.especialista",
+  },
+  {
     path: "/landing",
     component: () => import("@/views/LandingPage.vue"),
     name: "landing",
@@ -32,6 +47,14 @@ const routes: Array<RouteRecordRaw> = [
     path: "/register-especialista",
     component: () => import("@/views/registerEspecialista.vue"),
     name: "register.espescialista",
+    beforeEnter: async (to, from, next) => {
+      const condition: boolean = await checkCondition();
+      if (condition) {
+        next({ name: "revision.especialista" });
+      } else {
+        next(); // Continúa hacia "register-especialista"
+      }
+    },
   },
   {
     path: "/tabs/",
@@ -73,7 +96,7 @@ router.beforeEach(async (to, from) => {
   // ) {
   //   return router.push({ name: "home.map" });
   // } else {
-    return true;
+  return true;
   // }
 });
 export default router;

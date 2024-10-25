@@ -153,6 +153,14 @@ const handleClickOutside = (event) => {
     }
 }
 
+const registerEspe = async () => {
+    await registerEspecialista()
+    await router.push({ name: 'revision.especialista' });
+
+
+}
+
+
 onMounted(() => {
     getTipoServicios();
 
@@ -462,7 +470,7 @@ onMounted(() => {
                 </ion-accordion>
             </ion-accordion-group>
             <div class="mx-4 ">
-                <button @click="registerEspecialista"
+                <button @click="registerEspe"
                     class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
                     Registrar
                 </button>

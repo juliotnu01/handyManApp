@@ -1,6 +1,8 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import { Preferences } from '@capacitor/preferences';
+import { useRouter } from "vue-router";
+const router = useRouter();
 axios.defaults.baseURL = 'http://localhost:8000/api'
 export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
     state() {
@@ -24,6 +26,8 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
             },
             error: null,
             loading: false,
+            isRegisterEspecialista: false
+
         };
     },
 
@@ -113,17 +117,37 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                     formData.append('documento_identidad[trasera]', this.especialista.documento_identidad.trasera);
                 }
                 this.loading = true
-                let { data } = await axios.post('/register-especialista', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                await axios.post('/register-especialista', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                this.loading = false
+            } catch (error) {
+                if (error.response && error.response.data && error.response.data.message) {
+                    const { message } = error.response.data;
+                    this.error = message;
+                    this.loading = false
+                }
+            }
+        },
+        async getstatusRevision() {
+            try {
+                this.loading = true
+                const { value } = await Preferences.get({ key: "user" });
+                let user = JSON.parse(value);
+                let { data } = await axios(
+                    `/especialistas/get-revision-especialista/${user.id}`
+                );
+
+                await Preferences.set({
+                    key: "revision",
+                    value: JSON.stringify(data),
+                });
+
+                this.isRegisterEspecialista = data.revision
                 this.loading = false
 
             } catch (error) {
-                let { response } = error
-                let { data } = response
-                let { message } = data
-                this.error = message
-
-
+                console.log(error);
             }
         }
+
     }
 });

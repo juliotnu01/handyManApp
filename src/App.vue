@@ -21,18 +21,18 @@
         <div class="border-b-solid border-b-[1px]"></div>
         <div class=" mx-4 mt-4 flex justify-center ">
           <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input @change="changeMode" type="checkbox" name="toggle" id="toggle" v-model="modeCliente"
+            <input type="checkbox" name="toggle" id="toggle" v-model="modo"
               class="toggle-checkbox border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
             <label for="toggle"
               class="toggle-label block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400 "></label>
           </div>
-          <label for="toggle" class="toggle-label text-xs text-gray-700 self-center ">{{ modeCliente.toString() ==
-            'true' ? 'Cliente' : 'Especialista' }}</label>
+          <label for="toggle" class="toggle-label text-xs text-gray-700 self-center ">
+            {{ modo.toString() == 'true' ? 'Cliente' : 'Especialista' }}
+          </label>
         </div>
-        <div class="w-full mt-4" v-if="route.path === '/tabs/tab1'">
-          <ion-button @click="() => router.push('/register-especialista')" class="w-full font-bold bg-black rounded-md "
-            color="black">
-            Registrarse
+        <div class="w-full mt-4" v-if="!isRegisterEspecialista && !modo">
+          <ion-button @click="showRegister()" class="w-full font-bold bg-black rounded-md text-[12px] " color="black">
+            Registrarse como especialista
           </ion-button>
         </div>
         <div class="w-fit absolute bottom-0 m-4 right-0  ">
@@ -112,23 +112,17 @@ import { useTopMenuStore } from '@/stores/storeTopMenu/storeTopMenu.js'
 import { storeToRefs } from 'pinia';
 import LoadingOverlay from './components/LoadingOverlayComponent.vue'
 import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore'
+import { Preferences } from "@capacitor/preferences";
 
 const RegisterEspecialistaStore = useTopRegisterEspecialista();
-const { loading } = storeToRefs(RegisterEspecialistaStore);
-
-const loadingO = ref(false); // Cambia esto a 'false' para ocultar el spinner
-
-onMounted(() => {
-  watch(loading, (newVal) => {
-    loadingO.value = newVal
-  })
-})
-
-
+const { loading, isRegisterEspecialista }: any = storeToRefs(RegisterEspecialistaStore);
+const { getstatusRevision } = RegisterEspecialistaStore
 const StoreTopMenu = useTopMenuStore()
-const { mode } = storeToRefs(StoreTopMenu)
+const { mode }: any = storeToRefs(StoreTopMenu)
 const router: any = useRouter()
 const route: any = useRoute()
+
+const loadingO: any = ref(false);
 const appPages = [
   {
     title: 'Home',
@@ -167,18 +161,6 @@ const appPages = [
     mdIcon: locate
   }
 ];
-const modeCliente = computed({
-  get() { return mode.value },
-  set(val) { mode.value = val }
-})
-const changeMode = () => {
-  // if (modeCliente.value) {
-  //   router.push('/landing')
-  // } else {
-  //   router.push('/tabs/tab1')
-  // }
-}
-
 const logout: any = async () => {
   try {
     router.push({ name: 'loging.page' })
@@ -187,6 +169,59 @@ const logout: any = async () => {
 
   }
 }
+const showRegister = async () => {
+  router.push({ name: 'register.espescialista' })
+}
+
+// Computed con get y set para obtener y almacenar el valor
+const modo = computed({
+  get() {
+    return mode.value;
+  },
+  set(val) {
+    mode.value = val;
+    autoSaveMode();
+  },
+});
+
+// Función para guardar automáticamente el modo en localStorage
+const autoSaveMode = async () => {
+  await Preferences.set({
+    key: 'modo',
+    value: mode.value,
+  });
+};
+
+// Función para cargar el valor inicial de Preferences
+const loadInitialMode = async () => {
+  const { value } = await Preferences.get({ key: 'modo' });
+  if (value) {
+    mode.value = value;
+  }
+};
+
+
+onMounted(async () => {
+  await loadInitialMode();
+
+  watch(mode, async (newVal) => {
+    await autoSaveMode();
+    if (!newVal) {
+      await getstatusRevision();
+    }
+  });
+
+  watch(loading, (newVal) => {
+    loadingO.value = newVal
+  })
+  watch(mode, async (newVal: any) => {
+    autoSaveMode()
+    if (!newVal) {
+      await getstatusRevision()
+    }
+  })
+})
+
 
 </script>
 <style scoped lang="less">

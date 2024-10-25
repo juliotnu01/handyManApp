@@ -103,7 +103,8 @@ import axios from 'axios';
 
 import { ref, Ref } from 'vue';
 import { useRoute, useRouter, RouteComponent } from 'vue-router';
-const BaseServer = ref('http://18.218.213.31')
+// const BaseServer = ref('http://18.218.213.31')
+const BaseServer = ref('http://localhost:8000')
 import { Preferences } from '@capacitor/preferences';
 // const route: RouteComponent = useRoute();
 const router: RouteComponent = useRouter();
