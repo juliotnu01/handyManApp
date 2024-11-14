@@ -1,20 +1,21 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
-import { RouteRecordRaw, useRoute } from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 import TabsPage from "../views/TabsPage.vue";
-
-// import { computed } from "vue";
-import { storeToRefs } from "pinia";
-// import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
-// import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
+import { useTopRegisterEspecialista } from "@/stores/registerEspecialista/RegisterEspecialistaStore";
 import { Preferences } from "@capacitor/preferences";
-import axios from "axios";
-const route: any = useRoute();
-
-
-const checkCondition = async () => {
-  const { value } = await Preferences.get({ key: "revision" });
-  let { revision } = JSON.parse(value);
-  return revision;
+import pinia from "@/stores/store";
+const especialistaStore = useTopRegisterEspecialista(pinia);
+const { getstatusRevision } = especialistaStore;
+// Función auxiliar para verificar la revisión
+const checkCondition = async (): Promise<boolean> => {
+  try {
+    const { value } = await Preferences.get({ key: "revision" });
+    if (!value) return false;
+    const { revision } = JSON.parse(value);
+    return revision;
+  } catch {
+    return false;
+  }
 };
 
 const routes: Array<RouteRecordRaw> = [
@@ -37,6 +38,14 @@ const routes: Array<RouteRecordRaw> = [
     path: "/revision-especialista",
     component: () => import("@/views/revisionEspecialista.vue"),
     name: "revision.especialista",
+    beforeEnter: async (to, from, next) => {
+      const condition = await checkCondition();
+      if (!condition) {
+        next({ name: "especialista" });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/landing",
@@ -44,15 +53,28 @@ const routes: Array<RouteRecordRaw> = [
     name: "landing",
   },
   {
-    path: "/register-especialista",
-    component: () => import("@/views/registerEspecialista.vue"),
-    name: "register.espescialista",
+    path: "/especialista",
+    component: () => import("@/views/especialistaView.vue"),
+    name: "especialista",
     beforeEnter: async (to, from, next) => {
-      const condition: boolean = await checkCondition();
+      const condition = await checkCondition();
       if (condition) {
         next({ name: "revision.especialista" });
       } else {
-        next(); // Continúa hacia "register-especialista"
+        next();
+      }
+    },
+  },
+  {
+    path: "/register-especialista",
+    component: () => import("@/views/registerEspecialista.vue"),
+    name: "register.especialista",
+    beforeEnter: async (to, from, next) => {
+      const condition = await checkCondition();
+      if (condition) {
+        next({ name: "revision.especialista" });
+      } else {
+        next();
       }
     },
   },
@@ -86,17 +108,34 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from) => {
-  // const { value: validUser } = await Preferences.get({ key: "valid_user" });
-  // if (!validUser) {
-  //   return router.push({ name: "login.page" });
-  // } else if (
-  //   (validUser && to.name == "login.page") ||
-  //   from.name == "login.page"
-  // ) {
-  //   return router.push({ name: "home.map" });
-  // } else {
-  return true;
-  // }
+// Navigation guard global
+router.beforeEach(async (to, from, next) => {
+  try {
+    await getstatusRevision();
+    const validUserPref = await Preferences.get({ key: "valid_user" });
+    const modoPref = await Preferences.get({ key: "modo" });
+
+    const valid_user = validUserPref.value === "true";
+    const modo = modoPref.value === "true";
+
+    if (to.name === "login.page" && valid_user) {
+      // Si el usuario está validado y trata de ir al login, redirigir según el modo
+      if (modo) {
+        next({ name: "home.map" });
+      } else {
+        next({ name: "revision.especialista" });
+      }
+    } else if (!valid_user && to.name !== "login.page") {
+      // Si el usuario no está validado y trata de ir a cualquier ruta que no sea login
+      next({ name: "login.page" });
+    } else {
+      // En cualquier otro caso, permitir la navegación
+      next();
+    }
+  } catch (error) {
+    console.error("Error en navigation guard:", error);
+    next({ name: "login.page" });
+  }
 });
+
 export default router;

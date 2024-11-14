@@ -100,20 +100,21 @@ import {
     IonImg, IonButtons, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonMenu, IonTabButton, IonTabs, IonLabel, IonIcon, IonRouterOutlet, menuController
 } from '@ionic/vue';
 import axios from 'axios';
-
 import { ref, Ref } from 'vue';
-import { useRoute, useRouter, RouteComponent } from 'vue-router';
-// const BaseServer = ref('http://18.218.213.31')
-const BaseServer = ref('http://localhost:8000')
+import { useRouter, RouteComponent } from 'vue-router';
 import { Preferences } from '@capacitor/preferences';
+
+// const BaseServer = ref('http://18.218.213.31')
 // const route: RouteComponent = useRoute();
+
+
 const router: RouteComponent = useRouter();
 const model: any = ref({
     email: '',
     password: ''
 })
-
 const loading: Ref<Boolean> = ref(false);
+const BaseServer = ref('http://localhost:8000')
 
 const showToast = async (message = '') => {
     const toast = await toastController.create({
@@ -128,6 +129,7 @@ const login: any = async () => {
     try {
 
         loading.value = true
+        registerEspcialistaStore.loading = true
         let { data } = await axios.post(`${BaseServer.value}/api/verify-login`, model.value)
         await Preferences.set({
             key: 'name',
@@ -144,12 +146,13 @@ const login: any = async () => {
         showToast("Session iniciada con exito...")
         await router.push({ name: 'home.map' });
         loading.value = false
-
-
+        registerEspcialistaStore.loading = false
 
 
     } catch (error: any) {
-        showToast(error);
+        showToast('Usuario o contraseña incorrectos.');
+        loading.value = false
+        registerEspcialistaStore.loading = false
     }
 }
 

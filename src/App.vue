@@ -22,9 +22,9 @@
         <div class=" mx-4 mt-4 flex justify-center ">
           <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
             <input type="checkbox" name="toggle" id="toggle" v-model="modo"
-              class="toggle-checkbox border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
+              :class="{'toggle-checkbox border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo, 'toggle-checkbox border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo}" />
             <label for="toggle"
-              class="toggle-label block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400 "></label>
+              :class="{'toggle-label block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': !modo, 'toggle-label block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo  } "></label>
           </div>
           <label for="toggle" class="toggle-label text-xs text-gray-700 self-center ">
             {{ modo.toString() == 'true' ? 'Cliente' : 'Especialista' }}
@@ -116,7 +116,6 @@ import { Preferences } from "@capacitor/preferences";
 
 const RegisterEspecialistaStore = useTopRegisterEspecialista();
 const { loading, isRegisterEspecialista }: any = storeToRefs(RegisterEspecialistaStore);
-const { getstatusRevision } = RegisterEspecialistaStore
 const StoreTopMenu = useTopMenuStore()
 const { mode }: any = storeToRefs(StoreTopMenu)
 const router: any = useRouter()
@@ -173,6 +172,13 @@ const showRegister = async () => {
   router.push({ name: 'register.espescialista' })
 }
 
+const showViewMode = (mode: any) => {
+  if (mode) {
+    router.push({ name: 'home.map' });
+  } else {
+    router.push({ name: 'especialista' });
+  }
+};
 // Computed con get y set para obtener y almacenar el valor
 const modo = computed({
   get() {
@@ -180,11 +186,9 @@ const modo = computed({
   },
   set(val) {
     mode.value = val;
-    autoSaveMode();
   },
 });
 
-// Función para guardar automáticamente el modo en localStorage
 const autoSaveMode = async () => {
   await Preferences.set({
     key: 'modo',
@@ -195,31 +199,32 @@ const autoSaveMode = async () => {
 // Función para cargar el valor inicial de Preferences
 const loadInitialMode = async () => {
   const { value } = await Preferences.get({ key: 'modo' });
-  if (value) {
-    mode.value = value;
-  }
+
+  mode.value = value === 'true'; // Convierte a booleano
 };
+
+
+
 
 
 onMounted(async () => {
   await loadInitialMode();
 
+  watch(modo, (newVal) => {
+    showViewMode(newVal);
+  });
   watch(mode, async (newVal) => {
     await autoSaveMode();
-    if (!newVal) {
-      await getstatusRevision();
-    }
+    showViewMode(newVal)
   });
+
+  console.log({ m:modo.value });
+
 
   watch(loading, (newVal) => {
     loadingO.value = newVal
   })
-  watch(mode, async (newVal: any) => {
-    autoSaveMode()
-    if (!newVal) {
-      await getstatusRevision()
-    }
-  })
+
 })
 
 

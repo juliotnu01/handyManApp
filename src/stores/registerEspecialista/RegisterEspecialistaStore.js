@@ -86,7 +86,6 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                 const { value } = await Preferences.get({ key: 'user' });
                 let user = JSON.parse(value)
 
-                // Agregamos los campos no relacionados con archivos
                 formData.append('user_id', user.id);
                 formData.append('nombre', this.especialista.nombre);
                 formData.append('apellido', this.especialista.apellido);
@@ -94,22 +93,18 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                 formData.append('correo', this.especialista.correo);
                 formData.append('numero_identificacion', this.especialista.numero_identificacion);
 
-                // Agregamos el array de servicios
                 this.especialista.servicios.forEach((servicio, index) => {
                     formData.append(`servicios[${index}]`, JSON.stringify(servicio));
                 });
 
-                // Agregamos el archivo de avatar
                 if (this.especialista.avatar) {
                     formData.append('avatar', this.especialista.avatar);
                 }
 
-                // Agregamos los archivos de certificados (array dinámico)
                 this.especialista.certificados.forEach((certificado, index) => {
                     formData.append(`certificados[${index}]`, certificado);
                 });
 
-                // Agregamos los archivos de documento_identidad (frontal y trasera)
                 if (this.especialista.documento_identidad.frontal) {
                     formData.append('documento_identidad[frontal]', this.especialista.documento_identidad.frontal);
                 }
@@ -141,7 +136,7 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
                     value: JSON.stringify(data),
                 });
 
-                this.isRegisterEspecialista = data.revision
+                this.isRegisterEspecialista = data.register ? true : false
                 this.loading = false
 
             } catch (error) {
