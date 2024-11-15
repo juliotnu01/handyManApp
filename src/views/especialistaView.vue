@@ -481,7 +481,8 @@
                     </div>
                     <div class=" h-fit w-full p-2">
                         <div class=" h-fit w-full p-2">
-                            <textarea class="border-solid border-[1px] w-full p-2 rounded-lg" rows="5">Ingrese texto</textarea>
+                            <textarea class="border-solid border-[1px] w-full p-2 rounded-lg"
+                                rows="5">Ingrese texto</textarea>
                         </div>
                     </div>
                 </ion-content>
@@ -583,7 +584,7 @@
                         </svg>
                     </div>
                     <div class="h-fit w-full p-2">
-                       
+
                     </div>
                 </ion-content>
             </ion-modal>
@@ -653,7 +654,7 @@
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
-                        <svg @click="closeModal7" fill="currentColor" version="1.1" width="25px" height="25px"
+                        <svg @click="closeModal8" fill="currentColor" version="1.1" width="25px" height="25px"
                             viewBox="0 0 471.851 471.851" class="text-red-400">
                             <g>
                                 <g>
@@ -682,7 +683,7 @@
                                 </g>
                             </g>
                         </svg>
-                        <svg @click="closeModal7" width="25px" height="25px" viewBox="0 0 24 24" fill="none"
+                        <svg @click="closeModal8" width="25px" height="25px" viewBox="0 0 24 24" fill="none"
                             class="text-green-400">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
@@ -691,7 +692,7 @@
                     </div>
                     <div class="h-fit w-full p-2">
                         <div
-                            class=" w-full h-[750px] border-solid border-[#cecece] border-[1px] shadow-lg rounded-lg p-2 flex gap-2 flex-col">
+                            class=" w-full h-fit border-solid border-[#cecece] border-[1px] shadow-lg rounded-lg p-2 flex gap-2 flex-col">
                             <div class=" w-full h-10 p-1 shadow-md">
                                 <input type="text" placeholder="Ingrese titulo de la oferta"
                                     class="h-full w-full rounded-md p-2">
@@ -714,11 +715,56 @@
                                     </svg>
                                 </label>
                             </div>
-                            <div class="h-40 rounded-md shadow-md p-2 relative  border-[1px]" >
+                            <div class="h-40 rounded-md shadow-md p-2 relative  border-[1px]">
                                 <textarea class=" w-full h-full">Ingrese una descipción</textarea>
                             </div>
-                            <div class="h-20 rounded-md shadow-md p-2 relative  border-[1px]" >
-                                
+                            <div class="h-fit rounded-md shadow-md p-2 relative  border-[1px]">
+                                <div class=" h-fit w-full p-2">
+                                    <input class="border-solid border-[1px] w-full p-2 rounded-lg"
+                                        placeholder="Busca categorias">
+                                </div>
+                                <div class="w-full border-solid border-[1px] my-2" />
+                                <div class="flex  flex-wrap">
+                                    <div v-for="n in handymanServices" :key="n"
+                                        class="px-3 py-1 bg-gray-300 rounded-full text-sm min-w-fit m-1">
+                                        {{ n }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-fit rounded-md shadow-md p-2 relative  border-[1px]">
+                                <div class=" h-fit w-full p-2 flex gap-4 ">
+                                    <label for="inputFolio" class="border-solid border-[1px] w-full p-2 rounded-lg">
+                                        <p>Seleccionar imagen</p>
+                                        <input class="hidden" type="file" id="inputFolio">
+                                    </label>
+                                    <button>
+                                        <svg fill="#000000" width="25px" height="25px" viewBox="0 0 32 32"
+                                            version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM22.386 10.146l-9.388 9.446-4.228-4.227c-0.39-0.39-1.024-0.39-1.415 0s-0.391 1.023 0 1.414l4.95 4.95c0.39 0.39 1.024 0.39 1.415 0 0.045-0.045 0.084-0.094 0.119-0.145l9.962-10.024c0.39-0.39 0.39-1.024 0-1.415s-1.024-0.39-1.415 0z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <swiper :loop="true" :centeredSlides="true"
+                                    :autoplay="{ delay: 2500, disableOnInteraction: false, }" :modules="modules2"
+                                    :pagination="{ clickable: false, }" class=" h-[10rem]  rounded-xl">
+                                    <swiper-slide
+                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=1')] "></swiper-slide>
+                                    <swiper-slide
+                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=2')] "></swiper-slide>
+                                    <swiper-slide
+                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=3')] "></swiper-slide>
+                                </swiper>
+                            </div>
+                            <div class="h-fit rounded-md shadow-md p-2 relative  border-[1px]">
+                                <div class="flex gap-1 justify-center">
+                                    <p class=" self-center font-semibold text-[#cecece]">$</p>
+                                    <input type="numer"
+                                        class=" text-right pr-2  w-50 h-10 border-solid border-[1px] border-[#cecece]"
+                                        placeholder="99.00">
+                                    <p class=" self-center  font-semibold text-[#cecece]">/ Hora</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -741,6 +787,9 @@ import timePicker from '../components/timePickerComponente.vue'
 import skeletonImg from '../assets/img/skeleton.webp'
 const selectedTime = ref('12:00 AM');
 const url = ref('https://picsum.photos/200/300/')
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Pagination, Autoplay } from 'swiper/modules';
+const modules2 = ref([Pagination, Autoplay]);
 const handymanServices = ref([
     'Plumbing',
     'Electrical Work',
