@@ -694,18 +694,19 @@
                         <div
                             class=" w-full h-fit border-solid border-[#cecece] border-[1px] shadow-lg rounded-lg p-2 flex gap-2 flex-col">
                             <div class=" w-full h-10 p-1 shadow-md">
-                                <input type="text" placeholder="Ingrese titulo de la oferta"
-                                    class="h-full w-full rounded-md p-2">
+                                <input v-model="seccion.oferta.titulo" type="text"
+                                    placeholder="Ingrese titulo de la oferta" class="h-full w-full rounded-md p-2">
                             </div>
                             <div class=" h-60 rounded-md shadow-md p-2 relative  border-[1px] ">
                                 <div class="w-full  h-fit">
                                     <p class=" font-bold capitalize ">Portada</p>
                                 </div>
                                 <div class="bg-cover bg-center w-full h-48 border-solid border-[5px] rounded-lg shadow-lg "
-                                    :style="`background-image: url(${skeletonImg});`" />
+                                    :style="`background-image: url(${seccion.oferta.portadaTemp ?? skeletonImg});`" />
                                 <label class="bg-white rounded-full p-2 absolute -bottom-2 right-0"
                                     for="portadaServicioImg">
-                                    <input type="file" class="hidden" id="portadaServicioImg">
+                                    <input type="file" class="hidden" id="portadaServicioImg" ref="portadaServicioImg"
+                                        @change="handlePortadaServicioImg">
                                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
                                         class="text-red-500">
                                         <path
@@ -716,30 +717,31 @@
                                 </label>
                             </div>
                             <div class="h-40 rounded-md shadow-md p-2 relative  border-[1px]">
-                                <textarea class=" w-full h-full">Ingrese una descipción</textarea>
+                                <textarea class=" w-full h-full" v-model="seccion.oferta.descripcion"></textarea>
                             </div>
                             <div class="h-fit rounded-md shadow-md p-2 relative  border-[1px]">
                                 <div class=" h-fit w-full p-2">
-                                    <input class="border-solid border-[1px] w-full p-2 rounded-lg"
-                                        placeholder="Busca categorias">
+                                    <p>Selecciona categorias </p>
                                 </div>
-                                <div class="w-full border-solid border-[1px] my-2" />
-                                <div class="flex  flex-wrap">
-                                    <div v-for="n in handymanServices" :key="n"
-                                        class="px-3 py-1 bg-gray-300 rounded-full text-sm min-w-fit m-1">
-                                        {{ n }}
+                                <div class="flex flex-wrap">
+                                    <div v-for="(servicio, index) in tiposServicios" :key="index"
+                                        class="px-3 py-1 rounded-full text-sm min-w-fit m-1 cursor-pointer"
+                                        :class="servicio.selected ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'"
+                                        @click="toggleSelection(index)">
+                                        {{ servicio.nombre }}
                                     </div>
                                 </div>
                             </div>
                             <div class="h-fit rounded-md shadow-md p-2 relative  border-[1px]">
                                 <div class=" h-fit w-full p-2 flex gap-4 ">
-                                    <label for="inputFolio" class="border-solid border-[1px] w-full p-2 rounded-lg">
-                                        <p>Seleccionar imagen</p>
-                                        <input class="hidden" type="file" id="inputFolio">
+                                    <label for="inputFolio" class="border-solid border-[1px] w-10/12 p-2 rounded-lg">
+                                        <p class="truncate"> {{ nameTempInputHandlerFolio ?? 'Seleccionar imagen' }}
+                                        </p>
+                                        <input class="hidden" type="file" id="inputFolio" @change="handleInputFolio">
                                     </label>
-                                    <button>
-                                        <svg fill="#000000" width="25px" height="25px" viewBox="0 0 32 32"
-                                            version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <button @click="addFolio">
+                                        <svg fill="#000000" width="25px" height="25px" viewBox="0 0 32 32" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM22.386 10.146l-9.388 9.446-4.228-4.227c-0.39-0.39-1.024-0.39-1.415 0s-0.391 1.023 0 1.414l4.95 4.95c0.39 0.39 1.024 0.39 1.415 0 0.045-0.045 0.084-0.094 0.119-0.145l9.962-10.024c0.39-0.39 0.39-1.024 0-1.415s-1.024-0.39-1.415 0z">
                                             </path>
@@ -749,18 +751,15 @@
                                 <swiper :loop="true" :centeredSlides="true"
                                     :autoplay="{ delay: 2500, disableOnInteraction: false, }" :modules="modules2"
                                     :pagination="{ clickable: false, }" class=" h-[10rem]  rounded-xl">
-                                    <swiper-slide
-                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=1')] "></swiper-slide>
-                                    <swiper-slide
-                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=2')] "></swiper-slide>
-                                    <swiper-slide
-                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center bg-[url('https://picsum.photos/600/500?random=3')] "></swiper-slide>
+                                    <swiper-slide v-for="(urlT, r) in seccion.oferta.tempPortafolio" :key="r"
+                                        class="h-auto bg-cover bg-origin-content brightness-100 bg-center "
+                                        :style="`background-image: url(${urlT});`"></swiper-slide>
                                 </swiper>
                             </div>
                             <div class="h-fit rounded-md shadow-md p-2 relative  border-[1px]">
                                 <div class="flex gap-1 justify-center">
                                     <p class=" self-center font-semibold text-[#cecece]">$</p>
-                                    <input type="numer"
+                                    <input type="numer" v-model="seccion.oferta.valorHora"
                                         class=" text-right pr-2  w-50 h-10 border-solid border-[1px] border-[#cecece]"
                                         placeholder="99.00">
                                     <p class=" self-center  font-semibold text-[#cecece]">/ Hora</p>
@@ -782,13 +781,62 @@ import {
     IonAvatar,
     menuController
 } from '@ionic/vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import timePicker from '../components/timePickerComponente.vue'
 import skeletonImg from '../assets/img/skeleton.webp'
 const selectedTime = ref('12:00 AM');
 const url = ref('https://picsum.photos/200/300/')
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { useConfigEspecialista } from '@/stores/registerEspecialista/configEspecialista'
+import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore'
+
+import { storeToRefs } from 'pinia';
+const configEspecialistaStore = useConfigEspecialista()
+const EspecialistaStore = useTopRegisterEspecialista()
+
+const { seccion } = storeToRefs(configEspecialistaStore)
+const { tiposServicios } = storeToRefs(EspecialistaStore)
+const { getTipoServicios } = EspecialistaStore
+
+// ofertas
+const nameTempInputHandlerFolio = ref(null);
+const inputFolioTemp = ref(null);
+const handlePortadaServicioImg = (e) => {
+    seccion.value.oferta.portada = e.target.files[0]
+    seccion.value.oferta.portadaTemp = URL.createObjectURL(e.target.files[0])
+}
+const handleInputFolio = (e) => {
+    nameTempInputHandlerFolio.value = e.target.files[0].name
+    inputFolioTemp.value = e.target.files[0]
+}
+
+const addFolio = () => {
+
+    let urlTemp = URL.createObjectURL(inputFolioTemp.value)
+    seccion.value.oferta.tempPortafolio.push(urlTemp)
+    inputFolioTemp.value = null;
+    nameTempInputHandlerFolio.value = null
+
+
+}
+
+const toggleSelection = (index) => {
+    tiposServicios.value[index].selected = !tiposServicios.value[index].selected;
+    seccion.value.oferta.categria = tiposServicios.value
+};
+
+
+
+
+onMounted(async () => {
+    await getTipoServicios()
+    for (const element of tiposServicios.value) {
+        element.selected
+    }
+})
+
+
 const modules2 = ref([Pagination, Autoplay]);
 const handymanServices = ref([
     'Plumbing',
