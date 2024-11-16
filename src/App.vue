@@ -22,9 +22,9 @@
         <div class=" mx-4 mt-4 flex justify-center ">
           <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
             <input type="checkbox" name="toggle" id="toggle" v-model="modo"
-              :class="{'toggle-checkbox border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo, 'toggle-checkbox border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo}" />
+              :class="{ 'toggle-checkbox border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo, 'toggle-checkbox border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo }" />
             <label for="toggle"
-              :class="{'toggle-label block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': !modo, 'toggle-label block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo  } "></label>
+              :class="{ 'toggle-label block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': !modo, 'toggle-label block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo }"></label>
           </div>
           <label for="toggle" class="toggle-label text-xs text-gray-700 self-center ">
             {{ modo.toString() == 'true' ? 'Cliente' : 'Especialista' }}
@@ -199,32 +199,25 @@ const autoSaveMode = async () => {
 // Función para cargar el valor inicial de Preferences
 const loadInitialMode = async () => {
   const { value } = await Preferences.get({ key: 'modo' });
-
   mode.value = value === 'true'; // Convierte a booleano
 };
 
 
 
+watch(loading, (newVal) => {
+  loadingO.value = newVal
+})
+watch(modo, (newVal) => {
+  showViewMode(newVal);
+});
+watch(mode, async (newVal) => {
+  await autoSaveMode();
+  showViewMode(newVal)
+});
 
 
 onMounted(async () => {
   await loadInitialMode();
-
-  watch(modo, (newVal) => {
-    showViewMode(newVal);
-  });
-  watch(mode, async (newVal) => {
-    await autoSaveMode();
-    showViewMode(newVal)
-  });
-
-  console.log({ m:modo.value });
-
-
-  watch(loading, (newVal) => {
-    loadingO.value = newVal
-  })
-
 })
 
 

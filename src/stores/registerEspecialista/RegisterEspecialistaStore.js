@@ -76,7 +76,6 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
             try {
 
                 if (!this.validateEspecialista()) {
-                    console.log("Todos los campos requeridos deben estar completos.");
                     this.MessageToaste = 'Todos los campos requeridos deben estar completos.';
                     this.showToastM = true;
                     return;

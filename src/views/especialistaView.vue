@@ -785,7 +785,6 @@ import { onMounted, ref } from 'vue';
 import timePicker from '../components/timePickerComponente.vue'
 import skeletonImg from '../assets/img/skeleton.webp'
 const selectedTime = ref('12:00 AM');
-const url = ref('https://picsum.photos/200/300/')
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { useConfigEspecialista } from '@/stores/registerEspecialista/configEspecialista'
@@ -812,13 +811,10 @@ const handleInputFolio = (e) => {
 }
 
 const addFolio = () => {
-
     let urlTemp = URL.createObjectURL(inputFolioTemp.value)
     seccion.value.oferta.tempPortafolio.push(urlTemp)
     inputFolioTemp.value = null;
     nameTempInputHandlerFolio.value = null
-
-
 }
 
 const toggleSelection = (index) => {
