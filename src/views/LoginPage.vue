@@ -103,11 +103,13 @@ import axios from 'axios';
 import { ref, Ref } from 'vue';
 import { useRouter, RouteComponent } from 'vue-router';
 import { Preferences } from '@capacitor/preferences';
+import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore';
+
 
 // const BaseServer = ref('http://18.218.213.31')
 // const route: RouteComponent = useRoute();
 
-
+const registerEspcialistaStore = useTopRegisterEspecialista()
 const router: RouteComponent = useRouter();
 const model: any = ref({
     email: '',
@@ -131,6 +133,7 @@ const login: any = async () => {
         loading.value = true
         registerEspcialistaStore.loading = true
         let { data } = await axios.post(`${BaseServer.value}/api/verify-login`, model.value)
+
         await Preferences.set({
             key: 'name',
             value: data.user.email,
@@ -143,8 +146,29 @@ const login: any = async () => {
             key: 'valid_user',
             value: data.valid,
         });
+
+        let mode = await Preferences.get({
+            key: 'mode',
+        });
+
+        const { value } = mode
+
+        if (value) {
+            await Preferences.set({
+                key: 'mode',
+                value: JSON.stringify(true),
+            });
+            await router.push({ name: 'home.map' });
+
+        }else{
+
+        }
+
+        
+
+
+
         showToast("Session iniciada con exito...")
-        await router.push({ name: 'home.map' });
         loading.value = false
         registerEspcialistaStore.loading = false
 

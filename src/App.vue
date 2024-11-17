@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonApp, IonRouterOutlet, IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
+import {toastController, IonApp, IonRouterOutlet, IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
 import {
   archiveOutline,
   archiveSharp,
@@ -169,16 +169,23 @@ const logout: any = async () => {
   }
 }
 const showRegister = async () => {
-  router.push({ name: 'register.espescialista' })
+  router.push({ name: 'register.especialista' })
 }
 
 const showViewMode = async (mode: any) => {
   if (mode) {
     await router.push({ name: 'home.map' });
   } else {
-    await router.push({ name: 'especialista' });
+    let { value }: any = await Preferences.get({ key: 'revision' });
+    let serializeValue = JSON.parse(value)
+    if (serializeValue.register != null) {
+      await router.push({ name: 'especialista' });
+    }else{
+      showToast('Es necesario registrarse como especialista.')
+    }
+
   }
-  await nextTick(); 
+  await nextTick();
 };
 // Computed con get y set para obtener y almacenar el valor
 const modo = computed({
@@ -207,6 +214,15 @@ onMounted(async () => {
 
   });
 })
+
+const showToast = async (message = '') => {
+    const toast = await toastController.create({
+        message: message,
+        duration: 2000
+    });
+    toast.present();
+};
+
 
 
 </script>

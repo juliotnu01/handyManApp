@@ -11,8 +11,26 @@ const checkCondition = async (): Promise<boolean> => {
   try {
     const { value } = await Preferences.get({ key: "revision" });
     if (!value) return false;
+    const { register } = JSON.parse(value);
+    if (register) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch {
+    return false;
+  }
+};
+const checkConditionRevision = async (): Promise<boolean> => {
+  try {
+    const { value } = await Preferences.get({ key: "revision" });
+    if (!value) return false;
     const { revision } = JSON.parse(value);
-    return revision;
+    if (revision) {
+      return true;
+    } else {
+      return false;
+    }
   } catch {
     return false;
   }
@@ -39,11 +57,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/revisionEspecialista.vue"),
     name: "revision.especialista",
     beforeEnter: async (to, from, next) => {
-      const condition = await checkCondition();
-      if (!condition) {
-        next({ name: "especialista" });
-      } else {
+      const condition = await checkConditionRevision();
+      if (condition) {
         next();
+      } else {
+        next({ name: "especialista" });
       }
     },
   },
@@ -58,7 +76,9 @@ const routes: Array<RouteRecordRaw> = [
     name: "especialista",
     beforeEnter: async (to, from, next) => {
       const condition = await checkCondition();
-      if (condition) {
+      const condition2 = await checkConditionRevision();
+      console.log({ condition, condition2 });
+      if (condition && condition2) {
         next({ name: "revision.especialista" });
       } else {
         next();
