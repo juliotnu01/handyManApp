@@ -1,185 +1,3 @@
-<script setup>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonList, IonAvatar, IonInput, toastController } from '@ionic/vue';
-import { storeToRefs } from 'pinia';
-import { onMounted, ref, watch, computed } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore'
-
-
-const router = useRouter()
-const RegisterEspecialistaStore = useTopRegisterEspecialista();
-
-const { getTipoServicios, registerEspecialista } = RegisterEspecialistaStore;
-const { tiposServicios, especialista, MessageToaste, showToastM, error } = storeToRefs(RegisterEspecialistaStore);
-
-// imagen de usuario
-const imgUser = ref(null);
-const imgUSerTemp = ref('');
-const imgIdentifacaionTemp = ref(null);
-const documentoCertificado = ref(null);
-const documentosCertificadosAgregados = ref([]);
-const identicacionPersonal = ref({
-    frontal: null,
-    trasera: null,
-})
-const currentToast = ref(null);
-
-const changeFileImgUser = (e) => {
-    imgUSerTemp.value = URL.createObjectURL(e.target.files[0])
-    especialista.value.avatar = e.target.files[0]
-}
-const handlerDocumentoCertificado = (e) => {
-    documentoCertificado.value = e.target.files[0];
-}
-const removeDocumentoCertificado = () => {
-    documentoCertificado.value = null
-}
-const agregarDocumentoCertificado = () => {
-    documentosCertificadosAgregados.value.push(documentoCertificado.value)
-    documentoCertificado.value = null
-    especialista.value.certificados = documentosCertificadosAgregados.value
-}
-
-const removeDocumentoCertificadoAgregado = (indice) => {
-    documentosCertificadosAgregados.value.splice(indice, 1);
-}
-
-const handlerIdentificacion = (e) => {
-
-    if (identicacionPersonal.value.frontal != null) {
-        identicacionPersonal.value.trasera = e.target.files[0]
-    } else if (identicacionPersonal.value.trasera != null) {
-        identicacionPersonal.value.frontal = e.target.files[0]
-    } else {
-        identicacionPersonal.value.frontal = e.target.files[0]
-    }
-    imgIdentifacaionTemp.value = URL.createObjectURL(e.target.files[0])
-    especialista.value.documento_identidad = identicacionPersonal.value
-}
-const newItem = ref({ nombre: '', id: null });
-const selectItem = (item) => {
-    tiposServicios.value = tiposServicios.value.filter((i) => i.nombre !== item.nombre);  // Lo elimina de 'items'
-    especialista.value.servicios = selectedItems.value
-};
-const removeItem = (item) => {
-    selectedItems.value = selectedItems.value.filter((i) => i.nombre !== item.nombre);  // Lo elimina de 'selectedItems'
-    especialista.value.servicios = selectedItems.value
-};
-
-const addCustomItem = () => {
-    checkedItems.value.push(newItem.value);  // Agrega la nueva opción a la lista de items
-    newItem.value.nombre = '';  // Limpia el input después de agregar la opción
-};
-const showToast = async (message = '') => {
-    try {
-        // Si hay un toast activo, intentamos cerrarlo
-        if (currentToast.value) {
-            await currentToast.value.dismiss().catch(() => {
-                // En caso de que ya haya sido cerrado
-                console.log("El toast ya fue cerrado.");
-            });
-            currentToast.value = null; // Reiniciamos la referencia
-        }
-
-        // Creamos el nuevo toast
-        currentToast.value = await toastController.create({
-            message: message,
-            duration: 2000
-        });
-        await currentToast.value.present();
-        showToastM.value = false
-    } catch (error) {
-        console.error('Error mostrando el toast:', error);
-    }
-};
-
-const searchContainer = ref(null)
-const searchInput = ref(null)
-const searchTerm = ref('')
-const isOpen = ref(false)
-const highlightedIndex = ref(-1)
-const selectedItems = ref([])
-
-const filteredItems = computed(() => {
-    return tiposServicios.value.filter(item => {
-        const matchesSearch = !searchTerm.value ||
-            item.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
-        return matchesSearch
-    })
-})
-
-
-// Métodos
-const selectItem2 = (item) => {
-    if (!isItemSelected(item)) {
-        selectedItems.value.push(item)
-    }
-    searchTerm.value = ''
-    isOpen.value = true // Reabrir dropdown después de seleccionar
-    searchInput.value.focus() // Volver a enfocar el campo de búsqueda
-    especialista.value.servicios = selectedItems.value
-}
-
-const removeItem2 = (index) => {
-    selectedItems.value.splice(index, 1)
-}
-
-const isItemSelected = (item) => {
-    return selectedItems.value.some(selected => selected.id === item.id)
-}
-
-const openDropdown = () => {
-    isOpen.value = true
-    highlightedIndex.value = -1
-}
-
-const handleBlur = () => {
-    // Usar setTimeout para permitir que el click en una opción se procese
-    setTimeout(() => {
-        if (!searchContainer.value.contains(document.activeElement)) {
-            isOpen.value = false
-            highlightedIndex.value = -1
-            searchTerm.value = ''
-        }
-    }, 100)
-}
-
-// Click fuera para cerrar
-const handleClickOutside = (event) => {
-    if (searchContainer.value && !searchContainer.value.contains(event.target)) {
-        isOpen.value = false
-        searchTerm.value = ''
-    }
-}
-
-const registerEspe = async () => {
-    await registerEspecialista()
-    await router.push({ name: 'revision.especialista' });
-
-
-}
-
-
-onMounted(() => {
-    getTipoServicios();
-
-    // Observar cambios en showToastM y ejecutar el toast cuando cambie a true
-    watch(showToastM, async (newVal) => {
-        if (newVal) {
-            await showToast(MessageToaste.value);
-        }
-    });
-    watch(error, async (err) => {
-        if (err) {
-            await showToast(err);
-            error.value = null
-        }
-    });
-});
-
-
-</script>
 <template>
     <ion-page>
         <ion-header>
@@ -478,3 +296,185 @@ onMounted(() => {
         </ion-content>
     </ion-page>
 </template>
+<script setup>
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonButton, IonList, IonAvatar, IonInput, toastController } from '@ionic/vue';
+import { storeToRefs } from 'pinia';
+import { onMounted, ref, watch, computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore'
+
+
+const router = useRouter()
+const RegisterEspecialistaStore = useTopRegisterEspecialista();
+
+const { getTipoServicios, registerEspecialista } = RegisterEspecialistaStore;
+const { tiposServicios, especialista, MessageToaste, showToastM, error } = storeToRefs(RegisterEspecialistaStore);
+
+// imagen de usuario
+const imgUser = ref(null);
+const imgUSerTemp = ref('');
+const imgIdentifacaionTemp = ref(null);
+const documentoCertificado = ref(null);
+const documentosCertificadosAgregados = ref([]);
+const identicacionPersonal = ref({
+    frontal: null,
+    trasera: null,
+})
+const currentToast = ref(null);
+
+const changeFileImgUser = (e) => {
+    imgUSerTemp.value = URL.createObjectURL(e.target.files[0])
+    especialista.value.avatar = e.target.files[0]
+}
+const handlerDocumentoCertificado = (e) => {
+    documentoCertificado.value = e.target.files[0];
+}
+const removeDocumentoCertificado = () => {
+    documentoCertificado.value = null
+}
+const agregarDocumentoCertificado = () => {
+    documentosCertificadosAgregados.value.push(documentoCertificado.value)
+    documentoCertificado.value = null
+    especialista.value.certificados = documentosCertificadosAgregados.value
+}
+
+const removeDocumentoCertificadoAgregado = (indice) => {
+    documentosCertificadosAgregados.value.splice(indice, 1);
+}
+
+const handlerIdentificacion = (e) => {
+
+    if (identicacionPersonal.value.frontal != null) {
+        identicacionPersonal.value.trasera = e.target.files[0]
+    } else if (identicacionPersonal.value.trasera != null) {
+        identicacionPersonal.value.frontal = e.target.files[0]
+    } else {
+        identicacionPersonal.value.frontal = e.target.files[0]
+    }
+    imgIdentifacaionTemp.value = URL.createObjectURL(e.target.files[0])
+    especialista.value.documento_identidad = identicacionPersonal.value
+}
+const newItem = ref({ nombre: '', id: null });
+const selectItem = (item) => {
+    tiposServicios.value = tiposServicios.value.filter((i) => i.nombre !== item.nombre);  // Lo elimina de 'items'
+    especialista.value.servicios = selectedItems.value
+};
+const removeItem = (item) => {
+    selectedItems.value = selectedItems.value.filter((i) => i.nombre !== item.nombre);  // Lo elimina de 'selectedItems'
+    especialista.value.servicios = selectedItems.value
+};
+
+const addCustomItem = () => {
+    checkedItems.value.push(newItem.value);  // Agrega la nueva opción a la lista de items
+    newItem.value.nombre = '';  // Limpia el input después de agregar la opción
+};
+const showToast = async (message = '') => {
+    try {
+        // Si hay un toast activo, intentamos cerrarlo
+        if (currentToast.value) {
+            await currentToast.value.dismiss().catch(() => {
+                // En caso de que ya haya sido cerrado
+                console.log("El toast ya fue cerrado.");
+            });
+            currentToast.value = null; // Reiniciamos la referencia
+        }
+
+        // Creamos el nuevo toast
+        currentToast.value = await toastController.create({
+            message: message,
+            duration: 2000
+        });
+        await currentToast.value.present();
+        showToastM.value = false
+    } catch (error) {
+        console.error('Error mostrando el toast:', error);
+    }
+};
+
+const searchContainer = ref(null)
+const searchInput = ref(null)
+const searchTerm = ref('')
+const isOpen = ref(false)
+const highlightedIndex = ref(-1)
+const selectedItems = ref([])
+
+const filteredItems = computed(() => {
+    return tiposServicios.value.filter(item => {
+        const matchesSearch = !searchTerm.value ||
+            item.nombre.toLowerCase().includes(searchTerm.value.toLowerCase())
+        return matchesSearch
+    })
+})
+
+
+// Métodos
+const selectItem2 = (item) => {
+    if (!isItemSelected(item)) {
+        selectedItems.value.push(item)
+    }
+    searchTerm.value = ''
+    isOpen.value = true // Reabrir dropdown después de seleccionar
+    searchInput.value.focus() // Volver a enfocar el campo de búsqueda
+    especialista.value.servicios = selectedItems.value
+}
+
+const removeItem2 = (index) => {
+    selectedItems.value.splice(index, 1)
+}
+
+const isItemSelected = (item) => {
+    return selectedItems.value.some(selected => selected.id === item.id)
+}
+
+const openDropdown = () => {
+    isOpen.value = true
+    highlightedIndex.value = -1
+}
+
+const handleBlur = () => {
+    // Usar setTimeout para permitir que el click en una opción se procese
+    setTimeout(() => {
+        if (!searchContainer.value.contains(document.activeElement)) {
+            isOpen.value = false
+            highlightedIndex.value = -1
+            searchTerm.value = ''
+        }
+    }, 100)
+}
+
+// Click fuera para cerrar
+const handleClickOutside = (event) => {
+    if (searchContainer.value && !searchContainer.value.contains(event.target)) {
+        isOpen.value = false
+        searchTerm.value = ''
+    }
+}
+
+const registerEspe = async () => {
+    await registerEspecialista()
+    await router.push({ name: 'revision.especialista' });
+
+
+}
+
+
+onMounted(() => {
+    getTipoServicios();
+
+    // Observar cambios en showToastM y ejecutar el toast cuando cambie a true
+    watch(showToastM, async (newVal) => {
+        if (newVal) {
+            await showToast(MessageToaste.value);
+        }
+    });
+    watch(error, async (err) => {
+        if (err) {
+            await showToast(err);
+            error.value = null
+        }
+    });
+});
+
+
+</script>

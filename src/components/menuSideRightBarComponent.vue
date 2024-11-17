@@ -1,5 +1,5 @@
 <template>
-    <ion-menu menu-id="first-menu" side="end" content-id="main-content">
+    <ion-menu menu-id="main-content-cliente" side="end" content-id="main-content">
         <ion-header class="shadow-none bg-[rgb(15,23,18)] text-[rgb(247,247,250)] font-bold h-40 grid grid-rows-3 gap-4  ">
             <div class="p-2">
                 <div class=" flex justify-between">
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </ion-header>
-        <ion-content class="">
+        <ion-content class="ion-padding">
             <swiper>
                 <swiper-slide>
                     <ion-img

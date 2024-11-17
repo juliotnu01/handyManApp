@@ -411,7 +411,7 @@ import {
     IonLabel,
     IonIcon,
     IonItem,
-    IonListHeader
+    IonListHeader,
 } from '@ionic/vue';
 import logo from '@/assets/Icons/logo.png'
 import logoname from '@/assets/Icons/logo-name.png'

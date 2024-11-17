@@ -46,7 +46,7 @@
                 </div>
                 <div class=" w-full h-full">
                     <div class="bg-cover bg-center w-full h-full border-solid border-[5px] rounded-lg shadow-lg "
-                        :style="`background-image: url(${url});`" />
+                        :style="`background-image: url(${''});`" />
                 </div>
             </div>
             <div class="h-fit">
@@ -779,7 +779,8 @@ import {
     IonContent,
     IonButton,
     IonAvatar,
-    menuController
+    menuController,
+    IonPage,
 } from '@ionic/vue';
 import { onMounted, ref } from 'vue';
 import timePicker from '../components/timePickerComponente.vue'

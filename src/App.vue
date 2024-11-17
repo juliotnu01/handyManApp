@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-    <ion-menu content-id="main-content" menu-id="first-menu">
+    <ion-menu content-id="main-content-cliente" menu-id="first-menu">
       <ion-content class="ion-padding">
         <ion-item>
           <ion-avatar class="mr-5 ">
@@ -76,7 +76,7 @@
         </div>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content" />
+    <ion-router-outlet id="main-content-cliente" />
     <!-- Loading Overlay -->
     <LoadingOverlay :isVisible="loadingO" />
   </ion-app>
@@ -106,7 +106,7 @@ import {
   locate,
   car
 } from 'ionicons/icons';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch, nextTick } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useTopMenuStore } from '@/stores/storeTopMenu/storeTopMenu.js'
 import { storeToRefs } from 'pinia';
@@ -172,52 +172,40 @@ const showRegister = async () => {
   router.push({ name: 'register.espescialista' })
 }
 
-const showViewMode = (mode: any) => {
+const showViewMode = async (mode: any) => {
   if (mode) {
-    router.push({ name: 'home.map' });
+    await router.push({ name: 'home.map' });
   } else {
-    router.push({ name: 'especialista' });
+    await router.push({ name: 'especialista' });
   }
+  await nextTick(); 
 };
 // Computed con get y set para obtener y almacenar el valor
 const modo = computed({
-  get() {
-    return mode.value;
-  },
-  set(val) {
-    mode.value = val;
-  },
+  get() { return mode.value; },
+  set(val) { mode.value = val; },
 });
 
 const autoSaveMode = async () => {
-  await Preferences.set({
-    key: 'modo',
-    value: mode.value,
-  });
+  await Preferences.set({ key: 'modo', value: modo.value });
 };
 
 // Función para cargar el valor inicial de Preferences
 const loadInitialMode = async () => {
   const { value } = await Preferences.get({ key: 'modo' });
-  mode.value = value === 'true'; // Convierte a booleano
+  modo.value = value === 'true'; // Convierte a booleano
 };
-
-
-
-watch(loading, (newVal) => {
-  loadingO.value = newVal
-})
-watch(modo, (newVal) => {
-  showViewMode(newVal);
-});
-watch(mode, async (newVal) => {
-  await autoSaveMode();
-  showViewMode(newVal)
-});
-
 
 onMounted(async () => {
   await loadInitialMode();
+  watch(loading, (newVal) => {
+    loadingO.value = newVal
+  })
+  watch(modo, async (newVal) => {
+    await autoSaveMode();
+    showViewMode(newVal)
+
+  });
 })
 
 
