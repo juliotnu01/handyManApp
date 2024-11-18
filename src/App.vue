@@ -22,12 +22,15 @@
         <div class=" mx-4 mt-4 flex justify-center ">
           <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
             <input type="checkbox" name="toggle" id="toggle" v-model="modo"
-              :class="{ 'toggle-checkbox border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo, 'toggle-checkbox border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo }" />
+              :class="{ 
+                'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo, 
+                'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo 
+                }" />
             <label for="toggle"
-              :class="{ 'toggle-label block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': !modo, 'toggle-label block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo }"></label>
+              :class="{ ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': !modo, ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo }"></label>
           </div>
-          <label for="toggle" class="toggle-label text-xs text-gray-700 self-center ">
-            {{ modo.toString() == 'true' ? 'Cliente' : 'Especialista' }}
+          <label for="toggle" class=" text-xs text-gray-700 self-center ">
+            {{ modo ? 'Cliente' : 'Especialista' }}
           </label>
         </div>
         <div class="w-full mt-4" v-if="!isRegisterEspecialista && !modo">
@@ -83,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import {toastController, IonApp, IonRouterOutlet, IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
+import { toastController, IonApp, IonRouterOutlet, IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
 import {
   archiveOutline,
   archiveSharp,
@@ -180,7 +183,7 @@ const showViewMode = async (mode: any) => {
     let serializeValue = JSON.parse(value)
     if (serializeValue.register != null) {
       await router.push({ name: 'especialista' });
-    }else{
+    } else {
       showToast('Es necesario registrarse como especialista.')
     }
 
@@ -200,7 +203,7 @@ const autoSaveMode = async () => {
 // Función para cargar el valor inicial de Preferences
 const loadInitialMode = async () => {
   const { value } = await Preferences.get({ key: 'modo' });
-  modo.value = value === 'true'; // Convierte a booleano
+  modo.value = value  // Convierte a booleano
 };
 
 onMounted(async () => {
@@ -208,7 +211,7 @@ onMounted(async () => {
   watch(loading, (newVal) => {
     loadingO.value = newVal
   })
-  watch(modo, async (newVal) => {
+  watch(mode, async (newVal) => {
     await autoSaveMode();
     showViewMode(newVal)
 
@@ -216,11 +219,11 @@ onMounted(async () => {
 })
 
 const showToast = async (message = '') => {
-    const toast = await toastController.create({
-        message: message,
-        duration: 2000
-    });
-    toast.present();
+  const toast = await toastController.create({
+    message: message,
+    duration: 2000
+  });
+  toast.present();
 };
 
 
