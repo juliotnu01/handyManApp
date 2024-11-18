@@ -153,18 +153,20 @@ const login: any = async () => {
 
         const { value } = mode
 
-        if (value) {
+        if (value == null) {
             await Preferences.set({
-                key: 'mode',
+                key: 'modo',
                 value: JSON.stringify(true),
             });
             await router.push({ name: 'home.map' });
 
-        }else{
-
+        } else if (value) {
+            await router.push({ name: 'home.map' });
+        } else {
+            await router.push({ name: 'revision.especialista' });
         }
 
-        
+
 
 
 

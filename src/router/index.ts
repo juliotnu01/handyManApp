@@ -77,7 +77,6 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: async (to, from, next) => {
       const condition = await checkCondition();
       const condition2 = await checkConditionRevision();
-      console.log({ condition, condition2 });
       if (condition && condition2) {
         next({ name: "revision.especialista" });
       } else {
