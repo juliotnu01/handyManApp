@@ -1,5 +1,8 @@
+import { Preferences } from "@capacitor/preferences";
 import axios from "axios";
 import { defineStore } from "pinia";
+
+
 
 export const useConfigEspecialista = defineStore('configEspecialista', {
     state() {
@@ -24,8 +27,12 @@ export const useConfigEspecialista = defineStore('configEspecialista', {
     actions: {
         async storeOferta() {
             try {
+                let { value } = await Preferences.get({ key: 'user' })
+                let user = JSON.parse(value)
                 let formData = new FormData();
                 formData.append('titulo', this.seccion.oferta.titulo);
+                formData.append('user_id', user.id);
+                formData.append('status', true);
                 formData.append('descripcion', this.seccion.oferta.descripcion);
                 formData.append('valorHora', this.seccion.oferta.valorHora);
                 if (this.seccion.oferta.portada) {

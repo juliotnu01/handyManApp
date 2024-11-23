@@ -261,7 +261,7 @@
                     </div>
                 </div>
             </div>
-            <ion-modal :is-open="isModalOpen" @didDismiss="closeModal" trigger="open-modal" :initial-breakpoint="0.3"
+            <ion-modal :is-open="isModalOpen" @didDismiss="closeModal"  :initial-breakpoint="0.3"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -306,7 +306,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="isModalOpen2" @didDismiss="closeModal2" trigger="open-modal" :initial-breakpoint="0.8"
+            <ion-modal :is-open="isModalOpen2" @didDismiss="closeModal2"  :initial-breakpoint="0.8"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -394,7 +394,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="isModalOpen3" @didDismiss="closeModal3" trigger="open-modal" :initial-breakpoint="0.4"
+            <ion-modal :is-open="isModalOpen3" @didDismiss="closeModal3"  :initial-breakpoint="0.4"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -445,7 +445,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="isModalOpen4" @didDismiss="closeModal4" trigger="open-modal" :initial-breakpoint="0.4"
+            <ion-modal :is-open="isModalOpen4" @didDismiss="closeModal4"  :initial-breakpoint="0.4"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -487,7 +487,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="isModalOpen5" @didDismiss="closeModal5" trigger="open-modal" :initial-breakpoint="0.4"
+            <ion-modal :is-open="isModalOpen5" @didDismiss="closeModal5"  :initial-breakpoint="0.4"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -543,7 +543,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="isModalOpen6" @didDismiss="closeModal6" trigger="open-modal" :initial-breakpoint="0.4"
+            <ion-modal :is-open="isModalOpen6" @didDismiss="closeModal6"  :initial-breakpoint="0.4"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -588,7 +588,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="isModalOpen7" @didDismiss="closeModal7" trigger="open-modal" :initial-breakpoint="0.4"
+            <ion-modal :is-open="isModalOpen7" @didDismiss="closeModal7"  :initial-breakpoint="0.4"
                 :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">
@@ -650,7 +650,7 @@
                     </div>
                 </ion-content>
             </ion-modal>
-            <ion-modal :is-open="modals.openOfertas" @didDismiss="closeModal8" trigger="open-modal"
+            <ion-modal :is-open="modals.openOfertas" @didDismiss="closeModal8" 
                 :initial-breakpoint="1" :breakpoints="[0, 1]">
                 <ion-content class="ion-padding">
                     <div class="ion-margin-top flex gap-3 justify-between my-4">

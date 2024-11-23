@@ -147,27 +147,7 @@ const login: any = async () => {
             value: data.valid,
         });
 
-        let mode = await Preferences.get({
-            key: 'mode',
-        });
-
-        const { value } = mode
-
-        if (value == null) {
-            await Preferences.set({
-                key: 'modo',
-                value: JSON.stringify(true),
-            });
-            await router.push({ name: 'home.map' });
-
-        } else if (value) {
-            await router.push({ name: 'home.map' });
-        } else {
-            await router.push({ name: 'revision.especialista' });
-        }
-
-
-
+        await router.push({ name: 'home.map' });
 
 
         showToast("Session iniciada con exito...")

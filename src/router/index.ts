@@ -130,13 +130,13 @@ const router = createRouter({
 // Navigation guard global
 router.beforeEach(async (to, from, next) => {
   try {
-    await getstatusRevision();
     const validUserPref = await Preferences.get({ key: "valid_user" });
     const modoPref = await Preferences.get({ key: "modo" });
-
+    
     const valid_user = validUserPref.value === "true";
     const modo = modoPref.value === "true";
-
+    
+    await getstatusRevision();
     if (to.name === "login.page" && valid_user) {
       // Si el usuario está validado y trata de ir al login, redirigir según el modo
       if (modo) {

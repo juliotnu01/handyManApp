@@ -312,7 +312,10 @@ import {
   IonContent,
   IonButton,
   IonToolbar,
-  IonTitle
+  IonTitle,
+  IonHeader,
+  IonImg,
+  IonButtons
 } from '@ionic/vue';
 
 import iconMap from '@/assets/Icons/customer-info-svgrepo-com.svg'
@@ -320,7 +323,7 @@ import IconRepair from '@/assets/Icons/repair-hammer-svgrepo-com.svg'
 import menuSideBarRight from '@/components/menuSideRightBarComponent.vue'
 import { useTopMenuStore } from '@/stores/storeTopMenu/storeTopMenu.js'
 import { useRouter, useRoute } from 'vue-router';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const router = useRouter()
