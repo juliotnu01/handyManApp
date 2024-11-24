@@ -134,7 +134,7 @@
                         </ion-list>
                         <div class="flex gap-4">
                             <div class="flex flex-col justify-center  ">
-                                <img src="src/assets/img/INE.jpg"
+                                <img src="@/assets/img/INE.jpg"
                                     class="'w-full ml-12 h-[250px] bg-contain  rounded-lg bg-center bg-no-repeat  self-center  items-center" />
                                 <label
                                     v-if="identicacionPersonal.frontal == null || identicacionPersonal.trasera == null"

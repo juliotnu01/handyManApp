@@ -125,18 +125,25 @@ export const useTopRegisterEspecialista = defineStore("RegisterEspecialista", {
             try {
                 this.loading = true
                 const { value } = await Preferences.get({ key: "user" });
-                let user = JSON.parse(value);
-                let { data } = await axios(
-                    `/especialistas/get-revision-especialista/${user.id}`
-                );
+                if (value) {
 
-                await Preferences.set({
-                    key: "revision",
-                    value: JSON.stringify(data),
-                });
+                    let user = JSON.parse(value);
+                    let { data } = await axios(
+                        `/especialistas/get-revision-especialista/${user.id}`
+                    );
+    
+                    await Preferences.set({
+                        key: "revision",
+                        value: JSON.stringify(data),
+                    });
+    
+                    this.isRegisterEspecialista = data.register ? true : false
+                    this.loading = false
+                }else{
+                    this.isRegisterEspecialista = false
+                    this.loading = false
 
-                this.isRegisterEspecialista = data.register ? true : false
-                this.loading = false
+                }
 
             } catch (error) {
                 console.log(error);
