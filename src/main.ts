@@ -27,7 +27,10 @@ import "./theme/variables.css";
 
 import "swiper/css";
 
-const app = createApp(App).use(pinia).use(IonicVue).use(router);
+const app = createApp(App)
+            .use(pinia)
+            .use(IonicVue)
+            .use(router);
 
 router.isReady().then(() => {
   app.mount("#app");

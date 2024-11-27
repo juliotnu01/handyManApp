@@ -106,7 +106,7 @@ import { Preferences } from '@capacitor/preferences';
 import { useTopRegisterEspecialista } from '@/stores/registerEspecialista/RegisterEspecialistaStore';
 
 
-const BaseServer = ref('http://18.218.213.31')
+// const BaseServer = ref('http://18.218.213.31')
 // const route: RouteComponent = useRoute();
 
 const registerEspcialistaStore = useTopRegisterEspecialista()
@@ -116,7 +116,7 @@ const model: any = ref({
     password: ''
 })
 const loading: Ref<Boolean> = ref(false);
-// const BaseServer = ref('http://localhost:8000')
+const BaseServer = ref('http://localhost:8000')
 
 const showToast = async (message = '') => {
     const toast = await toastController.create({
@@ -148,11 +148,13 @@ const login: any = async () => {
         });
 
         let { value } = await Preferences.get({ key: 'modo' })
-
+        
         if (value) {
+            
             await router.push({ name: 'home.map' });
         } else {
             await Preferences.set({ key: 'modo', value: 'true' })
+            await router.push({ name: 'home.map' });
         }
 
 

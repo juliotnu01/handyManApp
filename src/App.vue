@@ -1,5 +1,6 @@
 <template>
   <ion-app>
+
     <ion-menu content-id="main-content-cliente" menu-id="first-menu">
       <ion-content class="ion-padding">
         <ion-item>
@@ -19,17 +20,18 @@
           <ion-label>{{ p.title }}</ion-label>
         </ion-item>
         <div class="border-b-solid border-b-[1px]"></div>
-        <div class=" mx-4 mt-4 flex justify-center ">
-          <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in" v-if="modo" >
+        <div class=" mx-4 mt-4 flex justify-center " v-if="!modo">
+          <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+            v-if="modo.toString() == 'true' || modo.toString() == 'false'">
             <input type="checkbox" name="toggle" id="toggle" v-model="modo" :class="{
-              'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString()  == 'false',
-              'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString()  == 'true'
+              'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString() == 'false',
+              'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString() == 'true'
             }" />
             <label for="toggle"
-              :class="{ ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': !modo, ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo }"></label>
+              :class="{ ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': modo.toString() == 'false', ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo.toString() == 'true' }"></label>
           </div>
           <label for="toggle" class=" text-xs text-gray-700 self-center ">
-            {{ modo ? 'Cliente' : 'Especialista' }} 
+            {{ modo ? 'Cliente' : 'Especialista' }}
           </label>
         </div>
         <div class="w-full mt-4" v-if="!isRegisterEspecialista && !modo">
@@ -85,7 +87,23 @@
 </template>
 
 <script setup lang="ts">
-import { toastController, IonApp, IonRouterOutlet, IonPage, IonMenu, IonContent, IonMenuButton, IonButton, IonBadge, IonChip, IonAvatar, IonLabel, IonIcon, IonItem, IonListHeader } from '@ionic/vue';
+import {
+  toastController,
+  IonApp,
+  IonRouterOutlet,
+  IonPage,
+  IonMenu,
+  IonContent,
+  IonMenuButton,
+  IonButton,
+  IonBadge,
+  IonChip,
+  IonAvatar,
+  IonLabel,
+  IonIcon,
+  IonItem,
+  IonListHeader
+} from '@ionic/vue';
 import {
   archiveOutline,
   archiveSharp,

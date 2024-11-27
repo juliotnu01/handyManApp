@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <menuSideBarRight />
-    <ion-router-outlet id="main-content-especialista" />
+    <ion-router-outlet id="main-content" />
     <!-- top menu -->
     <div class="w-full z-[1] h-28 absolute top-0 " v-show="route.path !== '/tabs/tab2'">
       <div class=" bg-transparent ">
