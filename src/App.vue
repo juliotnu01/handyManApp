@@ -21,8 +21,7 @@
         </ion-item>
         <div class="border-b-solid border-b-[1px]"></div>
         <div class=" mx-4 mt-4 flex justify-center " v-if="!modo">
-          <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
-            v-if="modo.toString() == 'true' || modo.toString() == 'false'">
+          <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in" v-if="modo.toString() == 'true' || modo.toString() == 'false'">
             <input type="checkbox" name="toggle" id="toggle" v-model="modo" :class="{
               'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString() == 'false',
               'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString() == 'true'
