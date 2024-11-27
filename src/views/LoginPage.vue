@@ -149,8 +149,7 @@ const login: any = async () => {
 
         let { value } = await Preferences.get({ key: 'modo' })
         
-        if (value) {
-            
+        if (value == 'true') {
             await router.push({ name: 'home.map' });
         } else {
             await Preferences.set({ key: 'modo', value: 'true' })

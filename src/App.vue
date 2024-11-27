@@ -20,17 +20,17 @@
           <ion-label>{{ p.title }}</ion-label>
         </ion-item>
         <div class="border-b-solid border-b-[1px]"></div>
-        <div class=" mx-4 mt-4 flex justify-center " v-if="!modo">
-          <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in" v-if="modo.toString() == 'true' || modo.toString() == 'false'">
+        <div class=" mx-4 mt-4 flex justify-center ">
+          <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
             <input type="checkbox" name="toggle" id="toggle" v-model="modo" :class="{
-              'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString() == 'false',
-              'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo.toString() == 'true'
+              'left-0 border-red-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': !modo ,
+              'right-0 border-green-400 absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer': modo 
             }" />
             <label for="toggle"
-              :class="{ ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': modo.toString() == 'false', ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo.toString() == 'true' }"></label>
+              :class="{ ' block overflow-hidden h-6 rounded-full bg-red-400 cursor-pointer border-red-400': modo == false, ' block overflow-hidden h-6 rounded-full bg-green-400 cursor-pointer border-red-400': modo == true || modo == null }"></label>
           </div>
           <label for="toggle" class=" text-xs text-gray-700 self-center ">
-            {{ modo ? 'Cliente' : 'Especialista' }}
+            {{ modo ? 'Cliente' : 'Especialista' }} 
           </label>
         </div>
         <div class="w-full mt-4" v-if="!isRegisterEspecialista && !modo">
@@ -191,48 +191,54 @@ const showRegister = async () => {
   router.push({ name: 'register.especialista' })
 }
 
-const showViewMode = async (mode: any) => {
-  if (mode) {
+// Función para manejar la lógica de cambio de vista
+const showViewMode = async (currentMode: boolean) => {
+  if (currentMode) {
     await router.push({ name: 'home.map' });
   } else {
-    let { value }: any = await Preferences.get({ key: 'revision' });
-    let serializeValue = JSON.parse(value)
-    if (serializeValue.register != null) {
+    const { value }: any = await Preferences.get({ key: 'revision' });
+    const { revision } = JSON.parse(value)
+    if (revision) {
       await router.push({ name: 'especialista' });
     } else {
-      showToast('Es necesario registrarse como especialista.')
+      showToast('Es necesario registrarse como especialista.');
     }
-
   }
-  await nextTick();
 };
-// Computed con get y set para obtener y almacenar el valor
+
+// `Computed` con `get` y `set` para enlazar `mode`
 const modo = computed({
-  get() { return mode.value; },
-  set(val) { mode.value = val; },
+  get() {
+    return mode.value;
+  },
+  set(val: boolean) {
+    mode.value = val;
+  },
 });
 
+// Función para guardar automáticamente el valor de `modo` en Preferences
 const autoSaveMode = async () => {
-  await Preferences.set({ key: 'modo', value: modo.value });
+  await Preferences.set({ key: 'modo', value: String(modo.value) }); // Se asegura de almacenar como string
 };
 
-// Función para cargar el valor inicial de Preferences
+// Función para cargar el valor inicial desde Preferences
 const loadInitialMode = async () => {
   const { value } = await Preferences.get({ key: 'modo' });
-  modo.value = value  // Convierte a booleano
+  modo.value = value === 'true'; // Convierte a booleano de forma segura
 };
 
+// `onMounted` para inicializar lógica y watchers
 onMounted(async () => {
+  
   await loadInitialMode();
-  watch(loading, (newVal) => {
-    loadingO.value = newVal
-  })
-  watch(mode, async (newVal) => {
-    await autoSaveMode();
-    showViewMode(newVal)
 
+  // Watch para guardar automáticamente cambios en `mode`
+  watch(mode, async (newVal: any) => {
+
+    await autoSaveMode();
+    await showViewMode(newVal);
   });
-})
+});
 
 const showToast = async (message = '') => {
   const toast = await toastController.create({

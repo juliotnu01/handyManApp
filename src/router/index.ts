@@ -2,10 +2,14 @@ import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 import TabsPage from "../views/TabsPage.vue";
 import { useTopRegisterEspecialista } from "@/stores/registerEspecialista/RegisterEspecialistaStore";
+import { useTopMenuStore } from "@/stores/storeTopMenu/storeTopMenu.js";
 import { Preferences } from "@capacitor/preferences";
 import pinia from "@/stores/store";
+import { storeToRefs } from "pinia";
 const especialistaStore = useTopRegisterEspecialista(pinia);
+const StoreTopMenu = useTopMenuStore(pinia);
 const { getstatusRevision } = especialistaStore;
+const { mode }: any = storeToRefs(StoreTopMenu);
 // Función auxiliar para verificar la revisión
 const checkCondition = async (): Promise<boolean> => {
   try {
@@ -131,11 +135,11 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   try {
     const validUserPref = await Preferences.get({ key: "valid_user" });
-    const modoPref = await Preferences.get({ key: "modo" });
-    
-    const valid_user = validUserPref.value === "true";
-    const modo = modoPref.value === "true";
-    
+    const { value } = await Preferences.get({ key: "modo" });
+
+    const valid_user = validUserPref.value == "true";
+    const modo = value == "true";
+    mode.value = modo;
     await getstatusRevision();
     if (to.name === "login.page" && valid_user) {
       // Si el usuario está validado y trata de ir al login, redirigir según el modo
